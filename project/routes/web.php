@@ -181,7 +181,7 @@ Route::post('vendor/complete_sa', 'VendorController@complete_sa')->name('vendor.
 
 Route::get('vendor/service_agreement_print/{id}', 'VendorController@service_agreement_print')->name('vendor.service_agreement.print');
 Route::get('vendor/service_agreement_download/{id}', 'VendorController@service_agreement_download')->name('vendor.service_agreement.download');
-Route::get('vendor/service_agreement_email/{id}', 'VendorController@service_agreement_email')->name('vendor.service_agreement.download');
+Route::get('vendor/service_agreement_email/{id}', 'VendorController@service_agreement_email')->name('vendor.service_agreement.email');
 
 
 Route::get('/admin/registration', 'Auth\AdminRegistrationController@showAdminRegistrationForm')->name('admin.reg');
