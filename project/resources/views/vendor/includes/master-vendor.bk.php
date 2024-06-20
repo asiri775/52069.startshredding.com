@@ -63,7 +63,7 @@
                 <a href="{!! url('vendor/dashboard') !!}"><i class="fa fa-fw fa-home"></i>  Dashboard</a>
             </li>
             <li>
-                <a href="{!! url('vendor/orders') !!}"><i class="fa fa-fw fa-usd"></i> Orders</a>
+                <a href="{!! url('vendor/jobs') !!}"><i class="fa fa-fw fa-usd"></i> Orders</a>
             </li>
             <li>
                 <a href="{!! url('vendor/products') !!}"><i class="fa fa-fw fa-shopping-cart"></i> Products</a>

@@ -24,7 +24,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="top-title">
-                        <h3>Order Details</h3>
+                        <h3>Job Details</h3>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -110,8 +110,8 @@
                     </div>
                 </div>
             </div>
-            <a href="/vendor/customer/{{$order->customerid}}/orders" class="btn btn-success float-right my-2">Back To Customer
-                orders</a>
+            <a href="/vendor/customer/{{$order->customerid}}/jobs" class="btn btn-success float-right my-2">Back To Customer
+                jobs</a>
             <a class="btn btn-primary btn-right"
                 onclick="printPage( '{{route('vendor.customer_order.print', ['id' => $order->id])}}' )"
                 href="javascript:void(0);"></i> <span class="bold">PRINT</span></a>

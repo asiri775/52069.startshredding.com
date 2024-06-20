@@ -96,7 +96,7 @@
 			let existingMarker = getExistingMarker(lookup, [latitude, longtude]);
 			if ((existingMarker == 0 || existingMarker != null)) {
 				if (lookup[existingMarker][3] != orderid) {
-					information = lookup[existingMarker][2] + '<hr><div><strong>Order ID: </strong><a href="/vendor/details/' + orderid + '">' + orderid + '</a><div><br>'
+					information = lookup[existingMarker][2] + '<hr><div><strong>Job ID: </strong><a href="/vendor/details/' + orderid + '">' + orderid + '</a><div><br>'
 							+ '<div><strong>Client: </strong>' + item[0] + '<div><br>'
 							+ '<div><strong>Address: </strong>' + item[3] + '<div><br>'
 							+ '<div><strong>Email: </strong><a href="mailto:' + item[4] + '">' + item[4] + '</a><div><br>'
@@ -107,7 +107,7 @@
 					continue;
 				}
 			} else {
-				information = '<div><strong>Order ID: </strong><a href="/vendor/details/' + orderid + '">' + orderid + '</a><div><br>'
+				information = '<div><strong>Job ID: </strong><a href="/vendor/details/' + orderid + '">' + orderid + '</a><div><br>'
 						+ '<div><strong>Client: </strong>' + item[0] + '<div><br>'
 						+ '<div><strong>Address: </strong>' + item[3] + '<div><br>'
 						+ '<div><strong>Email: </strong><a href="mailto:' + item[4] + '">' + item[4] + '</a><div><br>'
@@ -196,7 +196,7 @@
 	}
 </script>
 <div class="page-title row">
-	<h2>Order History</h2>
+	<h2>Job History</h2>
 	<div style="float: right;">
 	<span id="map_toggle_txt">Show Map</span>
 	<label class="switch">
@@ -225,7 +225,7 @@
 	<form action="" method="get">
 		<div class="form-group">
 			<div class="form-inline">
-				<label>Order#</label>
+				<label>Job#</label>
 				<input type="text" class="form-control" name="orderId">
 				<select class="form-control" name="time">
 					<option value="">Quick Date</option>
@@ -300,7 +300,7 @@
 							<tr>
 								<!-- <th width="5%"></th> -->
 								<th class="hidden-xs hidden-sm">Date</th>
-								<th>Order#</th>
+								<th>Job#</th>
 								<th>Client</th>
 								<th class="hidden-xs hidden-sm">Status</th>
 								<th class="hidden-xs hidden-sm">Amount</th>
@@ -401,7 +401,7 @@
 					exportOptions: {
 						columns: [0, 1, 2, 3, 4, 5]
 					},
-					title: 'Order History',
+					title: 'Job History',
 				},
 				{
 					extend: 'csv',
@@ -409,7 +409,7 @@
 					exportOptions: {
 						columns: [0, 1, 2, 3, 4, 5]
 					},
-					title: 'Order History',
+					title: 'Job History',
 				},
 				{
 					extend: 'pdf',
@@ -417,7 +417,7 @@
 					exportOptions: {
 						columns: [0, 1, 2, 3, 4, 5]
 					},
-					title: 'Order History',
+					title: 'Job History',
 				},
 				{
 					extend: 'print',
@@ -425,7 +425,7 @@
 					exportOptions: {
 						columns: [0, 1, 2, 3, 4, 5]
 					},
-					title: 'Order History',
+					title: 'Job History',
 				}
 			]
 		});

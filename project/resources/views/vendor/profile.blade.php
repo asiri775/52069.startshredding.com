@@ -91,7 +91,7 @@ $urlTime = "";
 							<div class="panel panel-default">
 								<div class="panel-heading"> 
 									<div class="top-title">
-										<h3>Orders</h3>
+										<h3>Jobs</h3>
 									</div>
 								</div>
 								<div class="panel-body">

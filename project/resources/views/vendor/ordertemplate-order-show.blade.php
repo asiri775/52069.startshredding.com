@@ -116,7 +116,7 @@
                     </div>
                 </div>
             </div>
-            <a href="/vendor/customer/{{$order->customerid}}/orders" class="btn btn-success float-right my-2">Back To Customer
+            <a href="/vendor/customer/{{$order->customerid}}/jobs" class="btn btn-success float-right my-2">Back To Customer
                 Account</a>
         </div>
     </div>

@@ -89,8 +89,7 @@ class VendorController extends Controller
     }
 
 
-    public function profile($id)
-    {
+    public function profile($id) {
         $orders = array();
         $searchSort = "";
         $text = "User Profile";
@@ -145,14 +144,14 @@ class VendorController extends Controller
         return view('vendor.withdrawmoney', compact('user', 'countries'));
     }
 
-    public function details($id)
-    {
+    public function details($id) {
         $order = Order::findOrFail($id);
+
         if ($order != null) {
 
         }
+
         $model = DB::select("select * from ordered_products where orderid='$id'");
-        
         
         $orderCheck=Order::where("id",$id)->where("order_type",3)->first();
         if($orderCheck){
@@ -165,8 +164,7 @@ class VendorController extends Controller
            
     }
 
-    public function withdraws()
-    {
+    public function withdraws() {
         if (isset($_GET['earningbtn'])) {
             $query = "";
 
@@ -200,13 +198,10 @@ class VendorController extends Controller
                         $startTime = date('Y-m-d 00:00:00', strtotime('first day of January 1970'));
                         $endTime = date('Y-m-d H:i:s');
                         break;
-
                 }
 
                 $query .= " and  created_at>='" . $startTime . "' and created_at<='" . $endTime . "'";
             } else {
-
-
                 if (isset($_GET['fromTime']) && $_GET['fromTime'] != "") {
                     $query .= " and  created_at>='" . date('Y-m-d 00:00:00', strtotime($_GET['fromTime'])) . "'";
                 }
@@ -214,12 +209,11 @@ class VendorController extends Controller
                 if (isset($_GET['toTime']) && $_GET['toTime'] != "") {
                     $query .= " and  created_at<='" . date('Y-m-d 23:59:59', strtotime($_GET['toTime'])) . "'";
                 }
-
             }
+
             if (isset($_GET['process']) && $_GET['process'] != "") {
                 $query .= " and  status='" . $_GET['process'] . "'";
             }
-
 
             $userString = "";
             $namesearch = false;
@@ -249,7 +243,6 @@ class VendorController extends Controller
             }
 
             $earnings = DB::select(DB::raw($sqlQuery));
-
         } else if (isset($_GET['sideTime']) && $_GET['sideTime'] != "") {
             $startTime = date('Y-m-d 00:00:00');
             $endTime = date('Y-m-d 23:59:59');
@@ -278,6 +271,7 @@ class VendorController extends Controller
 
         if (isset($_GET['historybtn'])) {
             $query = "";
+            
             if (isset($_GET['ref']) && $_GET['ref'] != "") {
                 $query .= " and reference like '%" . $_GET['ref'] . "%'";
             }
@@ -285,7 +279,6 @@ class VendorController extends Controller
             $startTime = date('Y-m-d 00:00:00');
             $endTime = date('Y-m-d 23:59:59');
             if (isset($_GET['time']) && $_GET['time'] != "") {
-
                 switch ($_GET['time']) {
                     case 'week':
                         $startTime = date('Y-m-d 00:00:00', strtotime('this week'));
@@ -309,13 +302,10 @@ class VendorController extends Controller
                         $startTime = date('Y-m-d 00:00:00', strtotime('first day of January 1970'));
                         $endTime = date('Y-m-d H:i:s');
                         break;
-
                 }
 
                 $query .= " and  created_at>='" . $startTime . "' and created_at<='" . $endTime . "'";
             } else {
-
-
                 if (isset($_GET['fromTime']) && $_GET['fromTime'] != "") {
                     $query .= " and  created_at>='" . date('Y-m-d 00:00:00', strtotime($_GET['fromTime'])) . "'";
                 }
@@ -323,7 +313,6 @@ class VendorController extends Controller
                 if (isset($_GET['toTime']) && $_GET['toTime'] != "") {
                     $query .= " and  created_at<='" . date('Y-m-d 23:59:59', strtotime($_GET['toTime'])) . "'";
                 }
-
             }
 
             $getHistory = DB::select('SELECT * FROM `withdraws` WHERE vendorid = ' . Auth::user()->id . $query);
@@ -408,9 +397,7 @@ class VendorController extends Controller
         return view('vendor.pos', compact('products'));
     }
 
-    public function plant()
-    {
-
+    public function plant() {
         $param = "";
         $s = '';
         if (isset($_GET['order'])) {
@@ -555,8 +542,7 @@ class VendorController extends Controller
         }
     }
 
-    public function documents($id)
-    {
+    public function documents($id) {
         $client = Clients::whereId($id)->first();
         $documents =DB::table('clients')
                         ->join('orders', 'clients.id', '=', 'orders.customerid')
@@ -624,8 +610,7 @@ class VendorController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function orders($id)
-    {
+    public function jobs($id) {
         if (isset($_GET['orderForm'])) {
             $query = "";
 

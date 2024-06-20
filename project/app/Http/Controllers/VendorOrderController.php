@@ -77,7 +77,7 @@ class VendorOrderController extends Controller
         $order = OrderedProducts::findOrFail($id);
         $stat['status'] = $status;
         $order->update($stat);
-        return redirect('vendor/orders')->with('message','Order Status Updated Successfully');
+        return redirect('vendor/jobs')->with('message','Order Status Updated Successfully');
     }
     /**
      * Update the specified resource in storage.
@@ -190,7 +190,7 @@ class VendorOrderController extends Controller
             ->where('id', $order->id)  // find your user by their email
             ->limit(1)  // optional - to ensure only one record is updated.
              ->update(array('job_status' => $job_status));
-        return redirect('vendor/orders')->with('message','Order Status Updated Successfully');
+        return redirect('vendor/jobs')->with('message','Order Status Updated Successfully');
     }
     public function confirmOrder() {
         return view('vendor.confirm_order');

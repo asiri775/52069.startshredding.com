@@ -108,7 +108,7 @@
                                                 <center>Received Date</center>
                                             </th>
                                             <th>
-                                                <center><a href="#">Order#</a></center>
+                                                <center><a href="#">Job#</a></center>
                                             </th>
                                             <th class="hidden-xs hidden-sm">
                                                 <center>QTY</center>
@@ -171,7 +171,7 @@
                                         <li><button type="submit" name="submit" value="notify_client">Batch
                                                 Notify</button></li>
 
-                                        <li>Order: &nbsp;<?php echo $totalOrders; ?></li>
+                                        <li>Job: &nbsp;<?php echo $totalOrders; ?></li>
                                         <li>No. Of Items: &nbsp;<?php echo $totalqty; ?></li>
 
                                         <li><button type="submit" name="submit" value="mark_complete">Mark as
@@ -188,7 +188,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="top-title">
-                            <h3>Orders on Delivery</h3>
+                            <h3>Jobs on Delivery</h3>
                         </div>
                         <form action="" method="get">
                             <select class="form-control title-select" onchange="$(this).parents('form').submit();"
@@ -251,7 +251,7 @@
                                                 <center>Ship Date</center>
                                             </th>
                                             <th>
-                                                <center><a href="#">Order#</a></center>
+                                                <center><a href="#">Job#</a></center>
                                             </th>
                                             <th class="hidden-xs hidden-sm">
                                                 <center>QTY</center>
@@ -314,7 +314,7 @@
                                         <li class="deselectChecked hide"><a href="javascript:;">Deselect</a></li>
                                         <li><button type="submit" name="submit" value="notify_client">Batch
                                                 Notify</button></li>
-                                        <li>Order: &nbsp;<?php echo $totalOrders2; ?></li>
+                                        <li>Job: &nbsp;<?php echo $totalOrders2; ?></li>
                                         <li>No. Of Items: &nbsp;<?php echo $totalqty2; ?></li>
                                         <li><button type="submit" name="submit" value="mark_complete">Mark as
                                                 Complete</button></li>

@@ -34,7 +34,7 @@
 			    	<div class="page-title custom">
 			    		<form action="" method="get">
 			    		<div class="form-group">
-			    			<label>Order#</label>
+			    			<label>Job#</label>
 			    			<div class="form-inline">
 			    				<input type="text" class="form-control width_100" name="orderId">
 			    				<select class="form-control" name="time">
@@ -91,8 +91,8 @@
 										<tr>
 											<th width="5%"></th>
 											<th>Date</th>
-											<th><a href="">Order#</a></th>
-											<th>Order Type</th>
+											<th><a href="">Job#</a></th>
+											<th>Job Type</th>
 											<th><a href="">Client</a></th>
 											<th>Invoice Amount</th>
 											<th>Fees</th>
