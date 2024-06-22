@@ -181,7 +181,7 @@ Route::post('vendor/complete_sa', 'VendorController@complete_sa')->name('vendor.
 
 Route::get('vendor/service_agreement_print/{id}', 'VendorController@service_agreement_print')->name('vendor.service_agreement.print');
 Route::get('vendor/service_agreement_download/{id}', 'VendorController@service_agreement_download')->name('vendor.service_agreement.download');
-Route::get('vendor/service_agreement_email/{id}', 'VendorController@service_agreement_email')->name('vendor.service_agreement.email');
+Route::get('vendor/service_agreement_email/{id}', 'VendorController@service_agreement_email')->name('vendor.service_agreement.download');
 
 
 Route::get('/admin/registration', 'Auth\AdminRegistrationController@showAdminRegistrationForm')->name('admin.reg');
@@ -296,7 +296,7 @@ Route::get('/admin/orders', 'OrderController@index');
 Route::get('/admin/orders/show/{id}', 'OrderController@show');
 Route::post('/admin/orders/bulkMailSend', 'OrderController@sendBulkEmail');
 Route::resource('admin/job-types', 'JobTypeController');
-Route::get('/vendor/jobs/status/{id}/{status}', 'VendorOrdersController@status');
+Route::get('/vendor/orders/status/{id}/{status}', 'VendorOrdersController@status');
 Route::resource('/vendor/jobs', 'VendorOrdersController');
 Route::any('/getAjCities', 'OrderController@getCities');
 Route::post('/admin/orders/searchResults', 'OrderController@searchResults');
@@ -399,7 +399,7 @@ Route::any('/client_user_activate/{takn}', 'ClientOrderController@client_user_ac
 //Index Page Routes
 Route::get('/vendor/customer/{id}', 'VendorController@show')->name('vendor.customer.show');
 Route::get('/vendor/customer/{id}/templates', 'VendorController@templates')->name('vendor.customer.templates');
-Route::get('/vendor/customer/{id}/jobs', 'VendorController@jobs')->name('vendor.customer.jobs');
+Route::get('/vendor/customer/{id}/orders', 'VendorController@orders')->name('vendor.customer.orders');
 Route::get('/vendor/customer/{id}/documents', 'VendorController@documents')->name('vendor.customer.documents');
 Route::get('/vendor/customer/{id}/billing', 'VendorController@billing')->name('vendor.customer.billing');
 Route::any('/vendor/order/get_ajax_product', 'VendorOrderController@getAJAXProduct')->name('get_ajax_product');

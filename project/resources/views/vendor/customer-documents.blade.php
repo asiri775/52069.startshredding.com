@@ -83,7 +83,7 @@
                             <ul class="nav nav-tabs">
                                 <li><a href="{{url('/vendor/customer/'.$client->id)}}">Overview</a></li>
                                 <li><a href="{{url('/vendor/customer/'.$client->id.'/templates')}}">Templates</a></li>
-                                <li><a href="{{url('/vendor/customer/'.$client->id.'/jobs')}}">Jobs</a></li>
+                                <li><a href="{{url('/vendor/customer/'.$client->id.'/orders')}}">Orders</a></li>
                                 <li><a href="{{url('/vendor/customer/'.$client->id.'/billing')}}">Billing</a></li>
                                 <li class="active"><a href="{{url('/vendor/customer/'.$client->id.'/documents')}}">Documents</a></li>
                             </ul>
@@ -105,7 +105,7 @@
                                                     <table class="table table-bordered w-100" id="documents-table">
                                                     <thead>
                                                         <tr class="text-center">
-                                                            <th style=" white-space: nowrap;" class="all-caps">JOb ID</th>
+                                                            <th style=" white-space: nowrap;" class="all-caps">Order ID</th>
                                                             <th  class="all-caps">Service Date</th>
                                                             <th  class="all-caps">Client</th>
                                                             <th  class="all-caps">Amount</th>

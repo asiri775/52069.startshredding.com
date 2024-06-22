@@ -88,7 +88,7 @@
                             </div>
                         </div>
                     </div>
-                    <a class="panel-footer detail-link clearfix btn-block" href="{{url('vendor/jobs')}}"><span class="pull-left">View All</span><span class="pull-right"><i class="fa fa-chevron-circle-right"></i>
+                    <a class="panel-footer detail-link clearfix btn-block" href="{{url('vendor/orders')}}"><span class="pull-left">View All</span><span class="pull-right"><i class="fa fa-chevron-circle-right"></i>
                     </span>
                     </a><!-- END panel-->
                 </div>
@@ -106,7 +106,7 @@
                             </div>
                         </div>
                     </div>
-                    <a class="panel-footer detail-link clearfix btn-block" href="{{url('vendor/jobs')}}"><span class="pull-left">View All</span><span class="pull-right"><i class="fa fa-chevron-circle-right"></i>
+                    <a class="panel-footer detail-link clearfix btn-block" href="{{url('vendor/orders')}}"><span class="pull-left">View All</span><span class="pull-right"><i class="fa fa-chevron-circle-right"></i>
                     </span>
                     </a><!-- END panel-->
                 </div>
@@ -124,7 +124,7 @@
                             </div>
                         </div>
                     </div>
-                    <a class="panel-footer detail-link clearfix btn-block" href="{{url('vendor/jobs')}}"><span class="pull-left">View All</span><span class="pull-right"><i class="fa fa-chevron-circle-right"></i>
+                    <a class="panel-footer detail-link clearfix btn-block" href="{{url('vendor/orders')}}"><span class="pull-left">View All</span><span class="pull-right"><i class="fa fa-chevron-circle-right"></i>
                     </span>
                     </a><!-- END panel-->
                 </div>

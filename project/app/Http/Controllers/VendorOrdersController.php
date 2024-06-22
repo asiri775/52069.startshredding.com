@@ -233,7 +233,7 @@ class VendorOrdersController extends Controller
         $order = OrderedProducts::findOrFail($id);
         $stat['status'] = $status;
         $order->update($stat);
-        return redirect('vendor/jobs')->with('message','Order Status Updated Successfully');
+        return redirect('vendor/orders')->with('message','Order Status Updated Successfully');
     }
     /**
      * Update the specified resource in storage.

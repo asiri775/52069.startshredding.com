@@ -403,7 +403,8 @@ class OrderTemplateController extends Controller
 
     }
 
-    public function OrderTemplateOrderViewRepeat($id) {
+    public function OrderTemplateOrderViewRepeat($id)
+    {
         $order = Order::where('id', $id)->first();
         $products = OrderTemplateItem::where('order_template_id', $order->template_id)->get();
         return view('vendor.ordertemplate-order-show-repeat', compact('order', 'products'));
@@ -672,7 +673,7 @@ class OrderTemplateController extends Controller
             $product->delete();
         }
         Session::flash('message', 'Order has been successfully Deleted');
-        return Redirect('/vendor/customer/' . $customerid . '/jobs?orderId=&quickdate=&fromTime=&toTime=&status=&method=&type=&orderForm=Search');
+        return Redirect('/vendor/customer/' . $customerid . '/orders?orderId=&quickdate=&fromTime=&toTime=&status=&method=&type=&orderForm=Search');
     }
 
     public function getMonthRange($start_date, $end_date, $months_apart,$days_allowed)

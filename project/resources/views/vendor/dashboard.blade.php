@@ -122,10 +122,10 @@ if(isset($_GET['order_transit']) && $_GET['order_transit']!=""){
 				</div>
 				<div class="sales">
 					<p><b>Sales:</b> <a href="javascript:;">{{$settings[0]->currency_sign}}<?=round($SaleSummary,2)?></a></p>
-					<p><b>Jobs:</b> <span><?=count($allOrders)?></span></p>
+					<p><b>Orders:</b> <span><?=count($allOrders)?></span></p>
 				</div>
 				<div class="order-title">
-					<h4>Jobs Summary</h4>
+					<h4>Orders Summary</h4>
 				</div> 
 				<div class="order-list">
 					<ul>
@@ -151,7 +151,7 @@ if(isset($_GET['order_transit']) && $_GET['order_transit']!=""){
 							<div class="panel panel-default">
 								<div class="panel-heading"> 
 									<div class="top-title">
-										<h3>Active Jobs</h3>
+										<h3>Active Orders</h3>
 									</div>
 								</div>
 								<div class="panel-body">
@@ -160,7 +160,7 @@ if(isset($_GET['order_transit']) && $_GET['order_transit']!=""){
 											<thead>
 											<tr>
 												<th style="width: 10px"></th>
-												<th>Job#</th>
+												<th>Order#</th>
 												<th>Client</th>
 												<th>Status</th>
 												<th>Date</th>
@@ -216,7 +216,7 @@ if(isset($_GET['order_transit']) && $_GET['order_transit']!=""){
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<div class="top-title">
-										<h3>Jobs In Transit</h3> 
+										<h3>Orders In Transit</h3> 
 									</div>
 									<form method="get" action="<?=$fullUrlCurrent?>" id="filterModelTraOrders">
 										<input type="hidden" value="<?=$urlTime?>" name="time">
@@ -244,7 +244,7 @@ if(isset($_GET['order_transit']) && $_GET['order_transit']!=""){
 												<thead>
 													<tr>
 														<th style="width: 10px"></th>
-														<th>Job#</th>
+														<th>Order#</th>
 														<th>Client</th>
 														<th>Status</th>
 														<th>Date</th>
@@ -310,7 +310,7 @@ if(isset($_GET['order_transit']) && $_GET['order_transit']!=""){
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<div class="top-title">
-										<h3>Completed Jobs</h3>
+										<h3>Completed Orders</h3>
 									</div> 
 									<form method="get" action="<?=$fullUrlCurrent?>" id="filterModelCompleOrders">
 										<input type="hidden" value="<?=$urlTime?>" name="time">
@@ -330,7 +330,7 @@ if(isset($_GET['order_transit']) && $_GET['order_transit']!=""){
 													<tr>
 														<th style="width: 10px"></th>
 														<th>Complete Date</th>
-														<th>Job#</th>
+														<th>Order#</th>
 														<th>Client</th>
 														<th>Status</th>
 														<th>Action</th>

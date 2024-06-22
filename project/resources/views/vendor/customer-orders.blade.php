@@ -89,7 +89,7 @@
                                 <li><a href="{{url('/vendor/customer/'.$client->id)}}">Overview</a></li>
                                 <li><a href="{{url('/vendor/customer/'.$client->id.'/templates')}}">Templates</a></li>
                                 <li class="active"><a
-                                            href="{{url('/vendor/customer/'.$client->id.'/jobs')}}">Jobs</a>
+                                            href="{{url('/vendor/customer/'.$client->id.'/orders')}}">Orders</a>
                                 </li>
                                 <li><a href="{{url('/vendor/customer/'.$client->id.'/billing')}}">Billing</a></li>
                                 <li><a href="{{url('/vendor/customer/'.$client->id.'/documents')}}" >Documents</a></li>
@@ -103,7 +103,7 @@
                                             <div class="form-group">
                                                 <div class="form-inline">
                                                     <div class="col-md-2 col-xs-12">
-                                                        <label>Job Id</label>
+                                                        <label>Order Id</label>
                                                         <input type="text" style="width: 100%;" class="form-control" name="orderId" value="<?=isset($_GET['orderId']) && ($_GET['orderId']) != '' ? $_GET['orderId'] : ''?>" id="orderId">
                                                     </div>
                                                     <div class="col-md-2 col-xs-12">
@@ -113,7 +113,7 @@
                                                     <div class="col-md-2 col-xs-12">
                                                         <label>Job Type</label>
                                                         <select class="form-control" name="type" style="width: 100%;">
-                                                            <option value="">--Job Type--</option>
+                                                            <option value="">--Order Type--</option>
                                                             <?php foreach ($jobType as $type){ ?>
                                                             <option value="{{$type->id}}"
                                                                     <?php if(isset($_GET['type']) && $_GET['type'] == $type->id){?>selected<?php } ?>>{{$type->name}}</option>
@@ -208,7 +208,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2 col-xs-12">
-                                                        <label>Job Status</label>
+                                                        <label>Order Status</label>
                                                         <select class="form-control" name="status" style="width: 100%;">
                                                             <option value="">--Status--</option>
                                                             <option value="scheduled"

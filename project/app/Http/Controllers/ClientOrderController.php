@@ -232,7 +232,7 @@ class ClientOrderController extends Controller
           } catch (\Exception $e) {
                     return $e->getMessage();
               }
-    return redirect()->to('vendor/jobs')->with(['message' => 'Email Send successfully!']);
+    return redirect()->to('vendor/orders')->with(['message' => 'Email Send successfully!']);
   }
   
 }
