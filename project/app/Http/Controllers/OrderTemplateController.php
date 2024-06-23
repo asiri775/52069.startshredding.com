@@ -35,8 +35,7 @@ class OrderTemplateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         if (isset($_GET['templateForm'])) {
             $query = "";
             if (isset($_GET['template']) && $_GET['template'] != "") {
@@ -80,14 +79,14 @@ class OrderTemplateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
-    {
+    public function create($id) {
         $accountManagers = DB::connection('mysql2')->table('EMPLOYEE')
             ->join('employee_company_details', 'EMPLOYEE.UID', '=', 'employee_company_details.employee_id')
             ->where('employee_company_details.department_id', 3)
             ->get();
         $vendor_id = Auth::user()->id;
         $job_type = DB::connection('mysql2')->table('JOB_TYPE')->get();
+        
         return view('vendor.template-create-customer', compact('id', 'accountManagers', 'job_type', 'vendor_id'));
     }
 
@@ -97,11 +96,8 @@ class OrderTemplateController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-
+    public function store(Request $request) {
         $rules = array(
-
             "name" => 'required',
             "job_type_id" => 'required',
             "repeat" => 'required',
@@ -140,12 +136,15 @@ class OrderTemplateController extends Controller
                 'avg_service_time' => $input['avg_service_time'],
                 'is_active' => $input['is_active'],
                 'special_notes' => $input['special_notes'],
-                'name_for_sams' => $input['name_for_sams'],
+                'name_for_sams' => $input['name_for_sams'] ?? '',
                 'payment_method' => $input['payment_method'],
             ]
         );
         Session::flash('message', 'Template has been successfully created');
-        return Redirect::route('order-template.show', ['order_template' => $template]);
+        
+        // /vendor/customer/{{$id}}/templates/
+        return Redirect::route('vendor.customer.templates', ['id' => $input['client_id']]); 
+        // return Redirect::route('order-template.show', ['order_template' => $template]);
     }
 
     /**
@@ -154,8 +153,7 @@ class OrderTemplateController extends Controller
      * @param \App\OrderTemplate $orderTemplate
      * @return \Illuminate\Http\Response
      */
-    public function show(OrderTemplate $orderTemplate)
-    {
+    public function show(OrderTemplate $orderTemplate) {
         $products = Product::where('vendorid', Auth::user()->id)
             ->orderBy('id', 'desc')
             ->pluck('id', 'title');
@@ -172,8 +170,7 @@ class OrderTemplateController extends Controller
      * @param \App\OrderTemplate $orderTemplate
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $orderTemplate = OrderTemplate::findOrFail($id);
         $accountManagers = DB::connection('mysql2')->table('EMPLOYEE')
             ->join('employee_company_details', 'EMPLOYEE.UID', '=', 'employee_company_details.employee_id')
@@ -192,8 +189,7 @@ class OrderTemplateController extends Controller
      * @param \App\OrderTemplate $orderTemplate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
-    {
+    public function update(Request $request) {
         $rules = array(
             "name" => 'required',
             "job_type_id" => 'required',
@@ -206,6 +202,7 @@ class OrderTemplateController extends Controller
 
         );
         $validator = Validator::make($request->all(), $rules);
+        
         if ($validator->fails()) {
             return Redirect::back()
                 ->withErrors($validator)
@@ -213,8 +210,8 @@ class OrderTemplateController extends Controller
             $input = $request->all();
 
         }
-        if ($request->input('template_id')) {
 
+        if ($request->input('template_id')) {
             $dateFromat=explode("-",$request->input('schedule_from'));
             $dateFromated=$dateFromat[2]."-".$dateFromat[0]."-".$dateFromat[1];
             $template = OrderTemplate::where('id', $request->input('template_id'))->first(); 
@@ -235,8 +232,9 @@ class OrderTemplateController extends Controller
             $template->update();
         }
         Session::flash('message', 'Template has been successfully updated');
-        return Redirect::route('order-template.show', ['order_template' => $template]);
 
+        return Redirect::route('vendor.customer.templates', ['id' => $template->client_id]); 
+        // return Redirect::route('order-template.show', ['order_template' => $template]);
     }
 
     /**
