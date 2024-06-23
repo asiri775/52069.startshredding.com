@@ -30,28 +30,34 @@ class OrderTemplate extends Model
     }
 
     public function daysAllowed(){
-
         if(!empty($this->attributes['days_allowed'])){
             $temp = [];
-            $days = json_decode($this->attributes['days_allowed']);
+            $days = json_decode($this->attributes['days_allowed']) ?? [];
 
             foreach ($days as $day){
                 if ($day == 1) {
                     $temp[] = 'Monday';
-                }if ($day == 2) {
+                }
+                if ($day == 2) {
                     $temp[] = 'Tuesday';
-                }if ($day == 3) {
+                }
+                if ($day == 3) {
                     $temp[] = 'Wednesday';
-                }if ($day == 4) {
+                }
+                if ($day == 4) {
                     $temp[] = 'Thursday';
-                }if ($day == 5) {
+                }
+                if ($day == 5) {
                     $temp[] = 'Friday';
-                }if ($day == 6) {
+                }
+                if ($day == 6) {
                     $temp[] = 'Saturday';
-                }if ($day == 7) {
+                }
+                if ($day == 7) {
                     $temp[] = 'Sunday';
                 }
             }
+            
             return implode(",",$temp);
         }
         return '';

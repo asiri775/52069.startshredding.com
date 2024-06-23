@@ -62,13 +62,15 @@ class OrderTemplateController extends Controller
 
             $orders = DB::select(DB::raw($orders));
         } else {
-
-            $orders = OrderTemplate::select('order_templates.id AS template_id', 'order_templates.name AS template_name', 'clients.business_name', 'job_type.name As job_type', 'order_templates.repeat', 'order_templates.schedule_from', 'order_templates.is_active')->where('order_templates.vendor_id', Auth::user()->id)->orderBy('order_templates.id', 'desc')
+            $orders = OrderTemplate::select('order_templates.id AS template_id', 'order_templates.name AS template_name', 'clients.business_name', 'job_type.name As job_type', 'order_templates.repeat', 'order_templates.schedule_from', 'order_templates.is_active')
+                ->where('order_templates.vendor_id', Auth::user()->id)
+                ->orderBy('order_templates.id', 'desc')
                 ->leftjoin('clients', 'order_templates.client_id', '=', 'clients.id')
                 ->leftjoin('job_type', 'job_type.id', '=', 'order_templates.job_type_id')
                 ->get();
 
         }
+        
         return view('vendor.repeat-templates-list', compact('orders'));
     }
 

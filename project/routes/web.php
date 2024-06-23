@@ -399,7 +399,7 @@ Route::any('/client_user_activate/{takn}', 'ClientOrderController@client_user_ac
 //Index Page Routes
 Route::get('/vendor/customer/{id}', 'VendorController@show')->name('vendor.customer.show');
 Route::get('/vendor/customer/{id}/templates', 'VendorController@templates')->name('vendor.customer.templates');
-Route::get('/vendor/customer/{id}/orders', 'VendorController@orders')->name('vendor.customer.orders');
+Route::get('/vendor/customer/{id}/jobs', 'VendorController@orders')->name('vendor.customer.orders');
 Route::get('/vendor/customer/{id}/documents', 'VendorController@documents')->name('vendor.customer.documents');
 Route::get('/vendor/customer/{id}/billing', 'VendorController@billing')->name('vendor.customer.billing');
 Route::any('/vendor/order/get_ajax_product', 'VendorOrderController@getAJAXProduct')->name('get_ajax_product');
