@@ -49,8 +49,7 @@ class VendorController extends Controller
         return view('vendor.dashboard');
     }
 
-	public function vieworders($status)
-    {
+	public function vieworders($status) {
         $orders = array();
         $searchSort = "";
         $text = "All Orders";
@@ -337,8 +336,7 @@ class VendorController extends Controller
         return view('vendor.withdraws', compact('withdraws', 'earnings', 'getHistory'));
     }
 
-    public function customers()
-    {
+    public function customers() {
         $customers = VendorCustomers::where('vendor_customers.vendor_id', Auth::user()->id)
             ->where('vendor_customers.status', 1)
             ->join('clients', 'vendor_customers.customer_id', '=', 'clients.id')
@@ -544,8 +542,7 @@ class VendorController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         $client = Clients::whereId($id)->first();
 
         if (!empty($client)) {
@@ -572,8 +569,7 @@ class VendorController extends Controller
         }
     }
 
-    public function billing($id)
-    {
+    public function billing($id) {
         $client = Clients::whereId($id)->first();
         $card_details = ClientCreditCard::where('client_id', $client->id)->orderBy('id', 'desc')->get();
         if (!empty($client)) {
@@ -624,8 +620,7 @@ class VendorController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function orders($id)
-    {
+    public function orders($id) {
         if (isset($_GET['orderForm'])) {
             $query = "";
 

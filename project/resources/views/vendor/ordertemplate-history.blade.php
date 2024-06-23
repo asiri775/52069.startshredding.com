@@ -54,7 +54,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="top-title">
-                        <h3>Order History</h3>
+                        <h3>Job History</h3>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -65,13 +65,13 @@
                                     <div class="col-md-2 col-xs-12">
                                         <label>ID</label>
                                         <input type="text" style="width: 100%;" class="form-control" name="orderId"
-                                               value="<?=($_GET['orderId']) != '' ? $_GET['orderId'] : ''?>"
+                                               value="<?=($_GET['orderId'] ?? '') != '' ? $_GET['orderId'] : ''?>"
                                                id="orderId">
                                     </div>
                                     <div class="col-md-2 col-xs-12">
                                         <label>Job Name</label>
                                         <input type="text" style="width: 100%;" class="form-control" name="jobName"
-                                               value="<?=($_GET['jobName']) != '' ? $_GET['jobName'] : ''?>"
+                                               value="<?=($_GET['jobName'] ?? '') != '' ? $_GET['jobName'] : ''?>"
                                                id="jobName">
                                     </div>
                                    <div class="col-md-2 col-xs-12">
@@ -79,7 +79,7 @@
                                         <select class="form-control" name="jobType" style="width: 100%;">
                                             <option value="">--Job Type--</option>
                                             <?php foreach ($jobType as $type) { ?>
-                                                <option value="{{$type->id}}" @if($_GET['jobType']==$type->id) selected @endif>
+                                                <option value="{{$type->id}}" @if($_GET['jobType'] ?? ''==$type->id) selected @endif>
                                                     {{$type->name}}
                                                 </option>
                                             <?php } ?>
@@ -89,9 +89,9 @@
                                         <label>Order Type</label>
                                         <select class="form-control" name="orderType" style="width: 100%;">
                                             <option value="">--Order Type--</option>
-                                            <option value="1" @if($_GET['orderType']==1) selected @endif>WALK IN</option>
-                                            <option value="2" @if($_GET['orderType']==2) selected @endif>ONLINE</option>
-                                            <option value="3" @if($_GET['orderType']==3) selected @endif>REPEAT</option>
+                                            <option value="1" @if($_GET['orderType']??''==1) selected @endif>WALK IN</option>
+                                            <option value="2" @if($_GET['orderType']??''==2) selected @endif>ONLINE</option>
+                                            <option value="3" @if($_GET['orderType']??''==3) selected @endif>REPEAT</option>
                                         </select>
                                     </div>
                                 </div>
@@ -103,47 +103,47 @@
                                         <select class="form-control" name="quickdate" style="width: 100%;">
                                             <option value="">--Quick Date--</option>
                                             <option value="yesterday"
-                                                    <?php if($_GET['quickdate'] == 'yesterday'){?>selected<?php } ?>>
+                                                    <?php if($_GET['quickdate']??'' == 'yesterday'){?>selected<?php } ?>>
                                                 Yesterday
                                             </option>
                                             <option value="today"
-                                                    <?php if($_GET['quickdate'] == 'today'){?>selected<?php } ?>>
+                                                    <?php if($_GET['quickdate']??'' == 'today'){?>selected<?php } ?>>
                                                 Today
                                             </option>
                                             <option value="tomorrow"
-                                                    <?php if($_GET['quickdate'] == 'tomorrow'){?>selected<?php } ?>>
+                                                    <?php if($_GET['quickdate']??'' == 'tomorrow'){?>selected<?php } ?>>
                                                 Tomorrow
                                             </option>
                                             <option value="weekday"
-                                                    <?php if($_GET['quickdate'] == 'weekday'){?>selected<?php } ?> >
+                                                    <?php if($_GET['quickdate']??'' == 'weekday'){?>selected<?php } ?> >
                                                 This Weekdays
                                             </option>
                                             <option value="wholeweek"
-                                                    <?php if($_GET['quickdate'] == 'wholeweek'){?>selected<?php } ?> >
+                                                    <?php if($_GET['quickdate']??'' == 'wholeweek'){?>selected<?php } ?> >
                                                 This Whole Week
                                             </option>
                                             <option value="nextweek"
-                                                    <?php if($_GET['quickdate'] == 'nextweek'){?>selected<?php } ?>>
+                                                    <?php if($_GET['quickdate']??'' == 'nextweek'){?>selected<?php } ?>>
                                                 Next Weekdays
                                             </option>
                                             <option value="thismonth"
-                                                    <?php if($_GET['quickdate'] == 'thismonth'){?>selected<?php } ?>>
+                                                    <?php if($_GET['quickdate']??'' == 'thismonth'){?>selected<?php } ?>>
                                                 This Month
                                             </option>
                                             <option value="nextmonth"
-                                                    <?php if($_GET['quickdate'] == 'nextmonth'){?>selected<?php } ?>>
+                                                    <?php if($_GET['quickdate']??'' == 'nextmonth'){?>selected<?php } ?>>
                                                 Next Month
                                             </option>
                                             <option value="thisyear"
-                                                    <?php if($_GET['quickdate'] == 'thisyear'){?>selected<?php } ?>>
+                                                    <?php if($_GET['quickdate']??'' == 'thisyear'){?>selected<?php } ?>>
                                                 This Year
                                             </option>
                                             <option value="yeartodate"
-                                                    <?php if($_GET['quickdate'] == 'yeartodate'){?>selected<?php } ?>>
+                                                    <?php if($_GET['quickdate']??'' == 'yeartodate'){?>selected<?php } ?>>
                                                 Year to Date
                                             </option>
                                             <option value="alltime"
-                                                    <?php if($_GET['quickdate'] == 'alltime'){?>selected<?php } ?>>
+                                                    <?php if($_GET['quickdate']??'' == 'alltime'){?>selected<?php } ?>>
                                                 All Time
                                             </option>
                                         </select>
@@ -153,7 +153,7 @@
                                         <div id="datepicker2" class="input-group date custom-calendar"
                                              data-date-format="mm-dd-yyyy">
                                             <input class="form-control datepicker" name="fromTime" type="text" id="fromTime" style="width: 100%;"
-                                                   value="<?=($_GET['fromTime']) != '' ? $_GET['fromTime'] : ''?>"
+                                                   value="<?=($_GET['fromTime']??'') != '' ? $_GET['fromTime'] : ''?>"
                                                    style="width: 100%;"/>
                                             <span class="input-group-addon"><i class="fa fa-calendar fromTimeCalendar"></i></span>
                                         </div>
@@ -164,7 +164,7 @@
                                              data-date-format="mm-dd-yyyy">
                                             <input class="form-control datepicker" style="width: 100%;"
                                                    name="toTime" type="text" id="toTime"
-                                                   value="<?=($_GET['toTime']) != '' ? $_GET['toTime'] : ''?>"/>
+                                                   value="<?=($_GET['toTime']??'') != '' ? $_GET['toTime'] : ''?>"/>
                                             <span class="input-group-addon"><i class="fa fa-calendar toTimeCalendar"></i></span>
                                         </div>
                                     </div>
@@ -173,31 +173,31 @@
                                         <select class="form-control" name="status" style="width: 100%;">
                                             <option value="">--Status--</option>
                                             <option value="scheduled"
-                                                    <?php if($_GET['status'] == 'scheduled'){?>selected<?php } ?>>
+                                                    <?php if($_GET['status']??'' == 'scheduled'){?>selected<?php } ?>>
                                                 Scheduled
                                             </option>
                                             <option value="completed"
-                                                    <?php if($_GET['status'] == 'completed'){?>selected<?php } ?>>
+                                                    <?php if($_GET['status']??'' == 'completed'){?>selected<?php } ?>>
                                                 Completed
                                             </option>
                                             <option value="at plant completed"
-                                                    <?php if($_GET['status'] == 'at plant completed'){?>selected<?php } ?>>
+                                                    <?php if($_GET['status']??'' == 'at plant completed'){?>selected<?php } ?>>
                                                 At Plant Completed
                                             </option>
                                             <option value="in transit"
-                                                    <?php if($_GET['status'] == 'in transit'){?>selected<?php } ?>>
+                                                    <?php if($_GET['status']??'' == 'in transit'){?>selected<?php } ?>>
                                                 In Transit
                                             </option>
                                             <option value="at plant"
-                                                    <?php if($_GET['status'] == 'at plant'){?>selected<?php } ?>>
+                                                    <?php if($_GET['status']??'' == 'at plant'){?>selected<?php } ?>>
                                                 At Plant
                                             </option>
                                             <option value="on delivery"
-                                                    <?php if($_GET['status'] == 'on delivery'){?>selected<?php } ?>>
+                                                    <?php if($_GET['status']??'' == 'on delivery'){?>selected<?php } ?>>
                                                 On Delivery
                                             </option>
                                             <option value="completed at store"
-                                                    <?php if($_GET['status'] == 'completed at store'){?>selected<?php } ?>>
+                                                    <?php if($_GET['status']??'' == 'completed at store'){?>selected<?php } ?>>
                                                 Completed At Store
                                             </option>
                                         </select>
@@ -219,7 +219,7 @@
                                     <thead>
                                     <tr>
                                         <th></th>
-                                        <th>ID</th>
+                                        <th>#Job</th>
                                         <th>Job Name</th>
                                         <th>Job Type</th>
                                         <th>Order Type</th>
@@ -240,10 +240,10 @@
     </div>
 
     <script>
-        function modalSend(order_id)
-        {
+        function modalSend(order_id) {
             $('#order_id').val(order_id);
         }
+
         $(function () {
             $.urlParam = function (name) {
                 var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -289,38 +289,52 @@
                             return '<input type="checkbox" name="chk_orders[]" value="' + $('<div/>').text(id).html() + '">';
                         }
                     },
-                    {data: 'id', name: 'id'},
-                    {data: "job_name", name: 'job_name'},
-                    {data: "type", name: 'type'},
-                    {data: 'order_type', render: function (data, type, full) {
-                            if ({data:"order_type"} === 1)
-                            {
-                                var str ='walk in';
-                                return str.toUpperCase();
-                            }
-                           else if ({data:"online"} === 2)
-                            {
-                                var str ='walk in';
-                                return str.toUpperCase();
-                            }
-                            else {
-                                var str ='Repeat';
-                                return str.toUpperCase();
-
-                            }
-
+                    {
+                        data: 'id',
+                        name: 'id',
+                        render: function(data, type, row, meta) {
+                            return '<a href="/vendor/order-template-order-view/' + data + '" target="blank">' + data + '</a>';
                         }
                     },
-                     {
-                        data: 'booking_date', render: function (data, type, full) {
+                    {data: "job_name", name: 'job_name'},
+                    {data: "type", name: 'type'},
+                    {
+                        data: 'order_type',
+                        render: function (data, type, full) {
+                            if ({data:"order_type"} === 1) {
+                                var str ='walk in';
+                                return str.toUpperCase();
+                            } else if ({data:"online"} === 2) {
+                                var str ='walk in';
+                                return str.toUpperCase();
+                            } else {
+                                var str ='Repeat';
+                                return str.toUpperCase();
+                            }
+                        }
+                    },
+                    {
+                        data: 'booking_date',
+                        render: function (data, type, full) {
                             return moment(new Date(data)).format('MM-DD-YYYY');
                         }
                     },
-                    {data: 'pay_amount', render: $.fn.dataTable.render.number(',', '.', 2, '$'), name: 'pay_amount'},
-                    {data: 'status',"render": function ( data, type, row, meta ) {
+                    {
+                        data: 'pay_amount',
+                        render: $.fn.dataTable.render.number(',', '.', 2, '$'),
+                        name: 'pay_amount'
+                    },
+                    {
+                        data: 'status',
+                        "render": function ( data, type, row, meta ) {
                             return data.toLowerCase().replace(/\b[a-z]/g, function(letter){return  letter.toUpperCase();});
-                      }              },
-                    {data: 'action', name: 'action', searchable: false}
+                        }
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        searchable: false
+                    }
                 ],
                 select: {
                     style: 'multi',
@@ -381,7 +395,6 @@
 
             });
 
-
             $('.buttons-select-all').on('click', function () {
                 var table = $("#orders-table");
                 var boxes = $('input:checkbox', table);
@@ -389,8 +402,8 @@
                     $(this).parent().addClass('checked');
                     $(this).prop('checked', 'checked');
                 });
-
             });
+
             $('.buttons-select-none').on('click', function () {
                 var table = $("#orders-table");
                 var boxes = $('input:checkbox', table);
@@ -401,8 +414,7 @@
             });
 
 
-            $('.sendAll').on('click', function (e)
-            {
+            $('.sendAll').on('click', function (e) {
                 var emailids_arr = [];
                 $.each($("input[name='chk_orders[]']:checked"), function () {
                     emailids_arr.push($(this).val());
@@ -416,25 +428,23 @@
                 }
             });
 
-            $('#sendInvoice').on('click', function (e)
-            {
-                    $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-                    $.ajax({
-                        type: "POST",
-                        url: '{{ route('vendor.order.notify')}}',
-                        data: {
-                            'order_id': $("#order_id").val(),
-                            'send_email':$("#send_email").val(),
-                        },
-                        success: function (data) {
-                            $("#successMessageSend").show();
-                        }
-                    });
-                    return false;
+            $('#sendInvoice').on('click', function (e) {
+                $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+                $.ajax({
+                    type: "POST",
+                    url: '{{ route('vendor.order.notify')}}',
+                    data: {
+                        'order_id': $("#order_id").val(),
+                        'send_email':$("#send_email").val(),
+                    },
+                    success: function (data) {
+                        $("#successMessageSend").show();
+                    }
+                });
+                return false;
             });
 
-            $('#sendInvoices').on('click', function (e)
-            {
+            $('#sendInvoices').on('click', function (e) {
                 $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
                 $.ajax({
                     type: "POST",
@@ -449,9 +459,6 @@
                 });
                 return false;
             });
-
-
-
         });
 
     </script>
@@ -528,14 +535,15 @@
     </div>
     <script>
         $(document).ready(function() {
-        $("#fromTime").datepicker();
-        $('.fromTimeCalendar').click(function() {
-            $("#fromTime").focus();
-        });
-        $("#toTime").datepicker();
-        $('.toTimeCalendar').click(function() {
-            $("#toTime").focus();
-        });
+            $("#fromTime").datepicker();
+            $('.fromTimeCalendar').click(function() {
+                $("#fromTime").focus();
+            });
+
+            $("#toTime").datepicker();
+            $('.toTimeCalendar').click(function() {
+                $("#toTime").focus();
+            });
         });
    </script>
 

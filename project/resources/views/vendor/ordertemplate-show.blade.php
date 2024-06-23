@@ -17,7 +17,7 @@
         <h2>Template: {{$orderTemplate->name}}</h2>
         <div style="float: right;">
             <a class="btn btn-info right" href="/vendor/order-template/{{$orderTemplate->id}}/edit"><i class="glyphicon glyphicon-edit"></i> Edit Template</a>
-            <a class="btn btn-warning right" href="/vendor/order-template-history/{{$orderTemplate->client_id}}/{{$orderTemplate->id}}"><i class="glyphicon glyphicon-record"></i> Order History</a>
+            <a class="btn btn-warning right" href="/vendor/order-template-history/{{$orderTemplate->client_id}}/{{$orderTemplate->id}}"><i class="glyphicon glyphicon-record"></i> Job History</a>
         </div>
     </div>
     @if(Session::has('message'))

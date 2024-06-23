@@ -161,6 +161,7 @@ class OrderTemplateController extends Controller
         $job_type = DB::connection('mysql2')->table('JOB_TYPE')->where('UID', $orderTemplate->job_type_id)->first();
         $accountManager = DB::connection('mysql2')->table('EMPLOYEE')->where('UID', $orderTemplate->manager_id)->first();
         $orderTemplateItems = OrderTemplateItem::whereOrderTemplateId($orderTemplate->id)->get();
+        
         return view('vendor.ordertemplate-show', compact('orderTemplate', 'products', 'orderTemplateItems', 'job_type', 'accountManager'));
     }
 
@@ -656,8 +657,7 @@ class OrderTemplateController extends Controller
         return view('vendor.ordertemplate-order-show', compact('order', 'products'));
     }
 
-    public function OrderTemplateOrderHistory($id)
-    {
+    public function OrderTemplateOrderHistory($id) {
         $order = Order::where('id', $id)->first();
         $products = OrderedProducts::where('orderid', $id)->get();
         return view('vendor.ordertemplate-history', compact('order', 'products'));
@@ -916,19 +916,20 @@ class OrderTemplateController extends Controller
         return $list;
     }
 
-    public function history($id,$temp_id)
-    {
+    // vendor/order-template-history/{id}/{temp_id}
+    public function history($id,$temp_id) {
         $orders = Order::select('orders.*', 'job_type.name as type')
             ->leftJoin('job_type', 'orders.job_type', '=', 'job_type.id')
             ->leftJoin('order_templates', 'order_templates.id', '=', 'orders.template_id')
             ->where('orders.customerid', $id)->where('orders.template_id',$temp_id)->where('order_templates.vendor_id', Auth::user()->id);
         $client_id=$id;
         $template_id=$temp_id;
-        if ($_GET['orderId']) {
+        
+        if (isset($_GET['orderId'])) {
             $orders->where('orders.id', $_GET['orderId']);
         }
 
-        if ($_GET['quickdate']) {
+        if (isset($_GET['quickdate'])) {
             $all = false;
             switch ($_GET['quickdate']) {
                 case 'today':
@@ -974,34 +975,40 @@ class OrderTemplateController extends Controller
                 default:
                     $all = true;
             }
+            
             if (!$all) {
                 $orders->whereBetween('orders.booking_date', [$start, $end]);
             }
-
         }
-        if (($_GET['fromTime']) && $_GET['toTime']) {
+
+        if (isset($_GET['fromTime']) && isset($_GET['toTime'])) {
             $orders->whereBetween('orders.booking_date', [date('Y-m-d', strtotime($_GET['fromTime'])), date('Y-m-d', strtotime($_GET['toTime']))]);
         }
-        if ($_GET['status']) {
+
+        if (isset($_GET['status'])) {
             $orders->where('orders.status', $_GET['status']);
         }
 
-        $jobType = str_replace('=', '', $_GET['jobType']);
+        $jobType = str_replace('=', '', $_GET['jobType'] ?? '');
         if ($jobType) {
            $orders->where('orders.job_type', $jobType);
         }
-        $jobName = str_replace('=', '', $_GET['jobName']);
+
+        $jobName = str_replace('=', '', $_GET['jobName'] ?? '');
         if ($jobName) {
             $orders->whereRaw('LOWER(orders.job_name) LIKE  "%'.trim(strtolower($jobName)).'%"');  
         }
-        $orderType = str_replace('=', '', $_GET['orderType']);
+
+        $orderType = str_replace('=', '', $_GET['orderType'] ?? '');
         if ($orderType) {
             $orders->where('orders.order_type', $orderType);
         }
-         $orders->orderBy('orders.id', 'desc')->get();
-         $template=OrderTemplate::where('id',$template_id)->first();
-         $query = "SELECT * FROM `job_type`";
-         $jobType = DB::select(DB::raw($query));
+
+        $orders->orderBy('orders.id', 'desc')->get();
+        $template=OrderTemplate::where('id',$template_id)->first();
+        $query = "SELECT * FROM `job_type`";
+        $jobType = DB::select(DB::raw($query));
+
         if (!empty($orders)) {
             return view('vendor.ordertemplate-history', compact('orders','template','jobType','template_id','client_id'));
         } else {
