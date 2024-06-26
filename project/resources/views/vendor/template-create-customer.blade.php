@@ -64,6 +64,7 @@
                             </div>
                             <br>
                             <br>
+
                             <div class="col-xs-12 mt-2">
                                 <label class="control-label col-sm-3" for="unit">Account Manager</label>
                                 <div class="col-sm-4">
@@ -78,6 +79,59 @@
                             <br>
                             <br>
 
+                            <div class="col-xs-12 mt-2">
+                                <label class="control-label col-sm-3" for="unit">Main Category *</label>
+                                <div class="col-sm-4">
+                                    <select class="w-100" type="text" name="main_category" id="main_category">
+                                        <option value="">Select Main Category</option>
+                                        @foreach($mainCategories as $category )
+                                            <option value="{{$category->id}}">
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @if($errors->has('main_category'))
+                                        <div class="error text-danger">{{ $errors->first('main_category') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+
+                            <div class="col-xs-12 mt-2">
+                                <label class="control-label col-sm-3" for="unit">Sub Category *</label>
+                                <div class="col-sm-4">
+                                    <select class="w-100" type="text" name="sub_category" id="sub_category">
+                                        <option value="">Select Sub Category</option>
+                                        @foreach($subCategories as $category )
+                                            <option value="{{ $category->id }}" data-main-category-id="{{ $category->mainid }}">
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @if($errors->has('sub_category'))
+                                        <div class="error text-danger">{{ $errors->first('sub_category') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+
+                            <div class="col-xs-12 mt-2">
+                                <label class="control-label col-sm-3" for="unit">Child Category</label>
+                                <div class="col-sm-4">
+                                    <select class="w-100" type="text" name="child_category" id="child_category">
+                                        <option value="">Select Child Category</option>
+                                        @foreach($childCategories as $category )
+                                            <option value="{{ $category->id }}" data-main-category-id="{{ $category->mainid }}" data-sub-category-id="{{ $category->subid }}">
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
 
                             <div class="col-xs-12 mt-2">
                                 <label class="control-label col-sm-3" for="unit">Order Type * </label>
@@ -282,18 +336,56 @@
     </div>
     <script>
         $(document).ready(function() {
-        $("#schedule_from").datepicker(
-           { 
-            todayBtn: "linked",
-            language: "it",
-            autoclose: true,
-            todayHighlight: true,
-            dateFormat: 'mm-dd-yy'
-        }  
-        );
-        $('.fromTimeCalendar').click(function() {
-            $("#schedule_from").focus();
-        });
+            $("#schedule_from").datepicker({ 
+                todayBtn: "linked",
+                language: "it",
+                autoclose: true,
+                todayHighlight: true,
+                dateFormat: 'mm-dd-yy'
+            });
+
+            $('.fromTimeCalendar').click(function() {
+                $("#schedule_from").focus();
+            });
+            
+            $('#main_category').change(function() {
+                var mainCategoryId = $(this).val();
+                filterSubCategories(mainCategoryId);
+                $('#child_category').empty().append('<option value="">Select Child Category</option>'); // Clear child categories
+            });
+
+            $('#sub_category').change(function() {
+                var subCategoryId = $(this).val();
+                filterChildCategories(subCategoryId);
+            });
+
+            function filterSubCategories(mainCategoryId) {
+                $('#sub_category').find('option').each(function() {
+                    var option = $(this);
+                    if (option.data('main-category-id') == mainCategoryId) {
+                        option.show();
+                    } else {
+                        option.hide();
+                    }
+                });
+                $('#sub_category').val(''); // Reset the sub-category selection
+            }
+
+            function filterChildCategories(subCategoryId) {
+                $('#child_category').find('option').each(function() {
+                    var option = $(this);
+                    if (option.data('sub-category-id') == subCategoryId) {
+                        option.show();
+                    } else {
+                        option.hide();
+                    }
+                });
+                $('#child_category').val(''); // Reset the child-category selection
+            }
+
+            // Initial call to set up the sub-categories and child categories based on the current selections
+            filterSubCategories($('#main_category').val());
+            filterChildCategories($('#sub_category').val());
         });
    </script>
     <script>

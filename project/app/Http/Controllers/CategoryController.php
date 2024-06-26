@@ -23,10 +23,10 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $child = Category::where('role','child')->get();
-        $subs = Category::where('role','sub')->get();
-        $categories = Category::where('role','main')->get();
-        return view('admin.categories',compact('categories','subs','child'));
+        $child = Category::where('role', 'child')->get();
+        $subs = Category::where('role', 'sub')->get();
+        $categories = Category::where('role', 'main')->get();
+        return view('admin.categories', compact('categories', 'subs', 'child'));
     }
 
     /**
@@ -47,27 +47,27 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'slug' => 'required|max:255|unique:categories',
         ]);
 
         if ($validator->passes()) {
-        $category = new Category;
-        $category->fill($request->all());
-        $category['role'] = "main";
-            if ($request->featured == 1){
+            $category = new Category;
+            $category->fill($request->all());
+            $category['role'] = "main";
+            if ($request->featured == 1) {
                 $category->featured = 1;
-            }else{
+            } else {
                 $category->featured = 0;
             }
-            if ($file = $request->file('fimage')){
-                $photo_name = time().$request->file('fimage')->getClientOriginalName();
-                $file->move('assets/images/categories',$photo_name);
+            if ($file = $request->file('fimage')) {
+                $photo_name = time() . $request->file('fimage')->getClientOriginalName();
+                $file->move('assets/images/categories', $photo_name);
                 $category['feature_image'] = $photo_name;
             }
-        $category->save();
-        Session::flash('message', 'New Category Added Successfully.');
-        return redirect('admin/categories');
+            $category->save();
+            Session::flash('message', 'New Category Added Successfully.');
+            return redirect('admin/categories');
         }
         return redirect()->back()->with('message', 'Category Slug Must Be Unique.');
     }
@@ -92,7 +92,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        return view('admin.categoryedit',compact('category'));
+        return view('admin.categoryedit', compact('category'));
     }
 
     /**
@@ -104,27 +104,27 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),[
-            'slug' => 'required|max:255|unique:categories,slug,'.$id,
+        $validator = Validator::make($request->all(), [
+            'slug' => 'required|max:255|unique:categories,slug,' . $id,
         ]);
 
         if ($validator->passes()) {
-        $category = Category::findOrFail($id);
-        $input = $request->all();
+            $category = Category::findOrFail($id);
+            $input = $request->all();
 
-            if ($file = $request->file('fimage')){
-                $photo_name = time().$request->file('fimage')->getClientOriginalName();
-                $file->move('assets/images/categories',$photo_name);
+            if ($file = $request->file('fimage')) {
+                $photo_name = time() . $request->file('fimage')->getClientOriginalName();
+                $file->move('assets/images/categories', $photo_name);
                 $input['feature_image'] = $photo_name;
             }
-            if ($request->featured == 1){
+            if ($request->featured == 1) {
                 $input['featured'] = 1;
-            }else{
+            } else {
                 $input['featured'] = 0;
             }
-        $category->update($input);
-        Session::flash('message', 'Category Updated Successfully.');
-        return redirect('admin/categories');
+            $category->update($input);
+            Session::flash('message', 'Category Updated Successfully.');
+            return redirect('admin/categories');
         }
         return redirect()->back()->with('message', 'Category Slug Must Be Unique.');
     }
@@ -142,21 +142,21 @@ class CategoryController extends Controller
         Session::flash('message', 'Category Deleted Successfully.');
         return redirect('admin/categories');
     }
-    
+
     //Delete All Category and Its Details
     public function delete($id)
     {
         $category = Category::findOrFail($id);
 
-        $subcategory = Category::where('mainid',$category->id);
+        $subcategory = Category::where('mainid', $category->id);
         $subcategory->delete();
 
-        if($category->role == "sub"){
-            $subchcategory = Category::where('subid',$category->id);
+        if ($category->role == "sub") {
+            $subchcategory = Category::where('subid', $category->id);
             $subchcategory->delete();
         }
 
-        $childcategory = Category::where('mainid',$category->id);
+        $childcategory = Category::where('mainid', $category->id);
         $childcategory->delete();
 
         $products = Product::whereRaw('FIND_IN_SET(?,category)', [$category->id]);

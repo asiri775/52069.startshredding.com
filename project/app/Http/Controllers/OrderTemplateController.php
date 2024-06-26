@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\AccountManager;
 use App\Order;
 use App\OrderedProducts;
@@ -79,16 +80,31 @@ class OrderTemplateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
-    {
+    public function create($id) {
         $accountManagers = DB::connection('mysql2')->table('EMPLOYEE')
             ->join('employee_company_details', 'EMPLOYEE.UID', '=', 'employee_company_details.employee_id')
             ->where('employee_company_details.department_id', 3)
             ->get();
         $vendor_id = Auth::user()->id;
         $job_type = DB::connection('mysql2')->table('JOB_TYPE')->get();
+        
+        $mainCategories = DB::table('categories')
+            ->select('id', 'mainid', 'subid', 'role', 'name')
+            ->where('role', 'main')
+            ->where('status', 1)
+            ->get();
+        $subCategories = DB::table('categories')
+            ->select('id', 'mainid', 'subid', 'role', 'name')
+            ->where('role', 'sub')
+            ->where('status', 1)
+            ->get();
+        $childCategories = DB::table('categories')
+            ->select('id', 'mainid', 'subid', 'role', 'name')
+            ->where('role', 'child')
+            ->where('status', 1)
+            ->get();
 
-        return view('vendor.template-create-customer', compact('id', 'accountManagers', 'job_type', 'vendor_id'));
+        return view('vendor.template-create-customer', compact('id', 'accountManagers', 'job_type', 'vendor_id', 'mainCategories', 'subCategories', 'childCategories'));
     }
 
     /**
@@ -97,8 +113,7 @@ class OrderTemplateController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $rules = array(
             "name" => 'required',
             "job_type_id" => 'required',
@@ -106,8 +121,9 @@ class OrderTemplateController extends Controller
             "days_allowed" => 'required',
             "schedule_from" => 'required',
             "avg_service_time" => 'numeric',
-            "is_active" => 'required'
-
+            "is_active" => 'required',
+            "main_category" => 'required',
+            "sub_category" => 'required'
         );
         $validator = Validator::make($request->all(), $rules);
 
@@ -136,6 +152,9 @@ class OrderTemplateController extends Controller
                 'schedule_from' => $dateFromated,
                 'avg_service_time' => $input['avg_service_time'],
                 'is_active' => $input['is_active'],
+                'main_category' => $input['main_category'],
+                'sub_category' => $input['sub_category'],
+                'child_category' => $input['child_category'] ?? null,
                 'special_notes' => $input['special_notes'],
                 'name_for_sams' => $input['name_for_sams'] ?? '',
                 'payment_method' => $input['payment_method'],
@@ -173,8 +192,7 @@ class OrderTemplateController extends Controller
      * @param \App\OrderTemplate $orderTemplate
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $orderTemplate = OrderTemplate::findOrFail($id);
         $accountManagers = DB::connection('mysql2')->table('EMPLOYEE')
             ->join('employee_company_details', 'EMPLOYEE.UID', '=', 'employee_company_details.employee_id')
@@ -182,8 +200,24 @@ class OrderTemplateController extends Controller
             ->get();
 
         $job_type = DB::connection('mysql2')->table('JOB_TYPE')->get();
+        
+        $mainCategories = DB::table('categories')
+            ->select('id', 'mainid', 'subid', 'role', 'name')
+            ->where('role', 'main')
+            ->where('status', 1)
+            ->get();
+        $subCategories = DB::table('categories')
+            ->select('id', 'mainid', 'subid', 'role', 'name')
+            ->where('role', 'sub')
+            ->where('status', 1)
+            ->get();
+        $childCategories = DB::table('categories')
+            ->select('id', 'mainid', 'subid', 'role', 'name')
+            ->where('role', 'child')
+            ->where('status', 1)
+            ->get();
 
-        return view('vendor.template-edit-customer', compact('orderTemplate', 'id', 'accountManagers', 'job_type'));
+        return view('vendor.template-edit-customer', compact('orderTemplate', 'id', 'accountManagers', 'job_type', 'childCategories', 'subCategories', 'mainCategories'));
     }
 
     /**
@@ -193,8 +227,7 @@ class OrderTemplateController extends Controller
      * @param \App\OrderTemplate $orderTemplate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
-    {
+    public function update(Request $request) {
         $rules = array(
             "name" => 'required',
             "job_type_id" => 'required',
@@ -203,15 +236,14 @@ class OrderTemplateController extends Controller
             "schedule_from" => 'required',
             "avg_service_time" => 'numeric',
             "is_active" => 'required',
-            "payment_method" => 'required'
-
+            "payment_method" => 'required',
+            "main_category" => 'required',
+            "sub_category" => 'required'
         );
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            return Redirect::back()
-                ->withErrors($validator)
-                ->withInput();
+            return Redirect::back()->withErrors($validator)->withInput();
             $input = $request->all();
         }
 
@@ -221,6 +253,9 @@ class OrderTemplateController extends Controller
             $template = OrderTemplate::where('id', $request->input('template_id'))->first();
             $template->name = $request->input('name');
             $template->job_type_id = $request->input('job_type_id');
+            $template->main_category = $request->input('main_category');
+            $template->sub_category = $request->input('sub_category');
+            $template->child_category = $request->input('child_category') ?? null;
             $template->repeat = $request->input('repeat');
             $template->days_apart = $request->input('days_apart');
             $template->weeks_apart = $request->input('weeks_apart');
@@ -235,6 +270,7 @@ class OrderTemplateController extends Controller
             $template->payment_method = $request->input('payment_method');
             $template->update();
         }
+
         Session::flash('message', 'Template has been successfully updated');
 
         return Redirect::route('vendor.customer.templates', ['id' => $template->client_id]);
