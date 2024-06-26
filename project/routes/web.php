@@ -181,7 +181,7 @@ Route::post('vendor/complete_sa', 'VendorController@complete_sa')->name('vendor.
 
 Route::get('vendor/service_agreement_print/{id}', 'VendorController@service_agreement_print')->name('vendor.service_agreement.print');
 Route::get('vendor/service_agreement_download/{id}', 'VendorController@service_agreement_download')->name('vendor.service_agreement.download');
-Route::get('vendor/service_agreement_email/{id}', 'VendorController@service_agreement_email')->name('vendor.service_agreement.download');
+Route::get('vendor/service_agreement_email/{id}', 'VendorController@service_agreement_email')->name('vendor.service_agreement.email');
 
 
 Route::get('/admin/registration', 'Auth\AdminRegistrationController@showAdminRegistrationForm')->name('admin.reg');
@@ -259,7 +259,16 @@ Route::post('admin/pagesettings/faq', 'PageSettingsController@faq');
 Route::post('admin/pagesettings/contact', 'PageSettingsController@contact');
 Route::resource('/admin/pagesettings', 'PageSettingsController');
 
-Route::resource('/admin/products', 'ProductController');
+// Route::resource('/admin/products', 'ProductController');
+Route::resource('/admin/products', 'ProductController')->names([
+    'index' => 'admin.products.index',
+    'create' => 'admin.products.create',
+    'store' => 'admin.products.store',
+    'show' => 'admin.products.show',
+    'edit' => 'admin.products.edit',
+    'update' => 'admin.products.update',
+    'destroy' => 'admin.products.destroy',
+]);
 Route::get('admin/products/pending', 'ProductController@pending');
 Route::get('admin/products/pending/{id}', 'ProductController@pendingdetails');
 Route::get('admin/products/status/{id}/{status}', 'ProductController@status');
@@ -280,7 +289,16 @@ Route::post('/vendor/vendorpassword/change/{id}', 'VendorProfileController@chang
 Route::post('/vendor/login-accounts', 'VendorProfileController@loginuser');
 Route::post('/vendor/bank-account', 'VendorProfileController@bankaccount');
 
-Route::resource('/vendor/settings', 'VendorProfileController');
+// Route::resource('/vendor/settings', 'VendorProfileController');
+Route::resource('/vendor/settings', 'VendorProfileController')->names([
+    'index' => 'vendor.settings.index',
+    'create' => 'vendor.settings.create',
+    'store' => 'vendor.settings.store',
+    'show' => 'vendor.settings.show',
+    'edit' => 'vendor.settings.edit',
+    'update' => 'vendor.settings.update',
+    'destroy' => 'vendor.settings.destroy',
+]);
 
 Route::get('/vendor/delete-bank-account', 'VendorProfileController@deletebankaccount');
 Route::get('/vendor/delete-login-user', 'VendorProfileController@deleteloginuser');
@@ -403,9 +421,11 @@ Route::get('/vendor/customer/{id}/jobs', 'VendorController@orders')->name('vendo
 Route::get('/vendor/customer/{id}/documents', 'VendorController@documents')->name('vendor.customer.documents');
 Route::get('/vendor/customer/{id}/billing', 'VendorController@billing')->name('vendor.customer.billing');
 Route::any('/vendor/order/get_ajax_product', 'VendorOrderController@getAJAXProduct')->name('get_ajax_product');
+
 Route::resource('/vendor/order-template', 'OrderTemplateController');
 Route::post('/vendor/order-template/generate', 'OrderTemplateController@makeRecurringOrder');
 Route::post('/vendor/order-template/update', 'OrderTemplateController@update');
+
 Route::get('/vendor/repeat-template-delete/{id}', 'OrderTemplateController@repeatTemplateDelete');
 Route::get('/vendor/order-template-order/{id}', 'OrderTemplateController@OrderTemplateOrderView');
 Route::get('/vendor/order-template-order-repeat/{id}', 'OrderTemplateController@OrderTemplateOrderViewRepeat');
@@ -416,6 +436,7 @@ Route::get('/vendor/order-template-order-view/{id}', 'OrderTemplateController@Or
 Route::get('/vendor/order-template-history-delete/{id}', 'OrderTemplateController@OrderTemplateHistoryDelete');
 Route::post('/vendor/order-template-history-notify', 'OrderTemplateController@notify')->name('vendor.order.notify');
 Route::post('/vendor/order-template-history-notify-all', 'OrderTemplateController@notifyAll')->name('vendor.order.notify.all');
+
 Route::resource('/vendor/template-product', 'OrderTemplateItemController');
 Route::post('/vendor/template-product/get-price', 'OrderTemplateItemController@getProductPrice');
 Route::get('/vendor/get-template-ajax/{client_id}', 'OrderTemplateController@getTemplateAjax');

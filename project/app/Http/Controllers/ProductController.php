@@ -21,9 +21,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $products = Product::orderBy('id','desc')->get();
+
         return view('admin.productlist',compact('products'));
     }
 
@@ -44,9 +44,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         $categories = Category::where('role','main')->get();
+        
         return view('admin.productadd',compact('categories'));
     }
 

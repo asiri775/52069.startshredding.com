@@ -13,15 +13,17 @@ class OrderTemplate extends Model
     protected $fillable = ['name', 'client_id','vendor_id', 'name_for_sams','manager_id','job_type_id','repeat','days_allowed','days_apart','weeks_apart','months_apart','schedule_from','avg_service_time','is_active','special_notes','po_cro_no','payment_method','crated_at','updated_at'];
 
 
-    public function setDaysAllowedAttribute($value)
-    {
+    public function setDaysAllowedAttribute($value) {
         $this->attributes['days_allowed'] = json_encode($value);
     }
 
-    public function getDaysAllowedAttribute($value)
-    {
-
-       return $this->attributes['days_allowed'] = json_decode($value);
+    public function getDaysAllowedAttribute($value) {
+        if (is_string($value)) {
+            return $this->attributes['days_allowed'] = json_decode($value);
+        }
+    
+        return $this->attributes['days_allowed'] = $value;
+        // return $this->attributes['days_allowed'] = json_decode($value);
     }
 
     public function client()

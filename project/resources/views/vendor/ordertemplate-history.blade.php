@@ -316,7 +316,7 @@
                     {
                         data: 'booking_date',
                         render: function (data, type, full) {
-                            return moment(new Date(data)).format('MM-DD-YYYY');
+                            return moment(new Date(data)).format('DD-MM-YYYY');
                         }
                     },
                     {

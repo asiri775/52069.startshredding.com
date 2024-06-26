@@ -87,9 +87,7 @@ class VendorController extends Controller
         return view('vendor.vieworders', compact('orders', 'text', 'filterStatus', 'q'));
     }
 
-
-    public function profile($id)
-    {
+    public function profile($id) {
         $orders = array();
         $searchSort = "";
         $text = "User Profile";
@@ -620,6 +618,7 @@ class VendorController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
+    // vendor/customer/{id}/jobs
     public function orders($id) {
         if (isset($_GET['orderForm'])) {
             $query = "";
@@ -711,7 +710,6 @@ class VendorController extends Controller
             $orders = DB::select(DB::raw($orders));
 
             foreach ($orders as $customer) {
-
                 if (!empty($customer->first_name)) {
                     $temp = [];
                     $temp[0] = $customer->first_name . " " . $customer->last_name;
@@ -727,18 +725,18 @@ class VendorController extends Controller
                     $temp[10] = $customer->payment == 'completed' ? 'Paid' : ($customer->payment == 'pending' ? 'Not Paid' : 'Partial Paid');
 
                     $customer_array[] = $temp;
-
                 } else {
                     continue;
                 }
             }
-
         } else {
             $orders = OrderedProducts::where('vendorid', 43)->orderBy('id', 'desc')->get();
         }
+
         $query = "SELECT * FROM `job_type`";
         $jobType = DB::select(DB::raw($query));
-         $client = Clients::whereId($id)->first();
+        $client = Clients::whereId($id)->first();
+        
         if (!empty($client)) {
             return view('vendor.customer-orders', compact('client','orders','jobType'));
         } else {

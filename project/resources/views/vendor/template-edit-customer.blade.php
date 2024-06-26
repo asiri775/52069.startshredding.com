@@ -184,17 +184,15 @@
                             <br>
                             <br>
 
-
                             <div class="col-xs-12 mt-2">
                                 <label class="control-label col-sm-3" for="province">Days Allowed * </label>
                                 <div class="col-sm-4">
                                     <?php
-                                    $days=$orderTemplate->days_allowed;
-                                    foreach ($days AS $allowed)
-                                        {
+                                        $days_allowed = [];
+                                        $days=$orderTemplate->days_allowed ?? [];
+                                        foreach ($days AS $allowed) {
                                             $days_allowed[$allowed]=$allowed;
                                         }
-
                                     ?>
                                     <select name="days_allowed[]" placeholder="Please Select" class="form-control custom-select" multiple id="days_allowed">
                                         <option value="1" <?php if(array_key_exists(1, $days_allowed) && $days_allowed[1]) {?>selected<?php }?> @if(is_array(old('days_allowed')) && in_array(1,old('days_allowed'))) selected @endif>Monday</option>

@@ -89,7 +89,7 @@
                                 <li><a href="{{url('/vendor/customer/'.$client->id)}}">Overview</a></li>
                                 <li><a href="{{url('/vendor/customer/'.$client->id.'/templates')}}">Templates</a></li>
                                 <li class="active"><a
-                                            href="{{url('/vendor/customer/'.$client->id.'/orders')}}">Orders</a>
+                                            href="{{url('/vendor/customer/'.$client->id.'/jobs')}}">Jobs</a>
                                 </li>
                                 <li><a href="{{url('/vendor/customer/'.$client->id.'/billing')}}">Billing</a></li>
                                 <li><a href="{{url('/vendor/customer/'.$client->id.'/documents')}}" >Documents</a></li>
@@ -103,7 +103,7 @@
                                             <div class="form-group">
                                                 <div class="form-inline">
                                                     <div class="col-md-2 col-xs-12">
-                                                        <label>Order Id</label>
+                                                        <label>Job Id</label>
                                                         <input type="text" style="width: 100%;" class="form-control" name="orderId" value="<?=isset($_GET['orderId']) && ($_GET['orderId']) != '' ? $_GET['orderId'] : ''?>" id="orderId">
                                                     </div>
                                                     <div class="col-md-2 col-xs-12">
@@ -208,7 +208,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2 col-xs-12">
-                                                        <label>Order Status</label>
+                                                        <label>Job Status</label>
                                                         <select class="form-control" name="status" style="width: 100%;">
                                                             <option value="">--Status--</option>
                                                             <option value="scheduled"
@@ -258,7 +258,7 @@
                                                     <tr>
                                                         <th>
                                                         </th>
-                                                        <th>Id</th>
+                                                        <th>Job#</th>
                                                         <th>Customer</th>
                                                         <th>Job Type</th>
                                                         <th>Method</th>
@@ -326,7 +326,13 @@
                             return '<input type="checkbox" name="chk_orders[]" value="' + $('<div/>').text(id).html() + '">';
                         }
                     },
-                    {data: 'id', name: 'id'},
+                    {
+                        data: 'id',
+                        name: 'id',
+                        render: function(data, type, row, meta) {
+                            return '<a href="/vendor/order-template-order-repeat/' + data + '" target="blank">' + data + '</a>';
+                        }
+                    },
                     {data: 'customer_name', name: 'clients.name'},
                     {data: "type", name: 'type', searchable: false},
                     {data: "method", name: 'method'},

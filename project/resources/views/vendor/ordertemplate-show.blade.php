@@ -309,8 +309,13 @@
                             <form id="genSingleDateForm" action="/vendor/order-template/generate" method="POST">
                                 <input type="hidden" name="order_template_id" value="{{$orderTemplate->id}}">
                                 {{ csrf_field() }}
-                                <input type="text" name="date" class="w-50" value="{{date('m/d/Y')}}"/>
-                                <input type="hidden" name="order_template_type" value="3"><i class="glyphicon glyphicon-calendar"></i>
+                                <input type="hidden" name="order_template_type" value="3">
+                                <input type="hidden" name="date" class="w-50" value="{{date('MM/DD/YYYY')}}"/>
+
+                                <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                    <i class="fa fa-calendar"></i>&nbsp;
+                                    <span></span> <i class="fa fa-caret-down"></i>
+                                </div>                                
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -429,11 +434,23 @@
         $('input[name="dates"]').daterangepicker({
             minDate: moment()
         });
-        $('input[name="date"]').datepicker({
-            dateFormat: 'd/m/Y',
-            defaultDate: new Date(),
 
-        });
+        var start = moment()
+
+        function cb(start) {
+            $('#reportrange span').html(start.format('DD/MM/YYYY'));
+            $('input[name="date"]').val(start.format('MM/DD/YYYY'));
+        }
+
+        $('#reportrange').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            autoUpdateInput: true,
+            startDate: start,
+            autoApply: true,
+        }, cb);
+
+        cb(start);
     </script>
 @stop
 
