@@ -23,14 +23,13 @@
         }
 
         @media only screen and (max-width: 480px)
-        {
-           .order-id {
-            width: 100%!important;
-            float: unset;
-            padding-right: unset;
+            {
+            .order-id {
+                width: 100%!important;
+                float: unset;
+                padding-right: unset;
+            }
         }
-     }
-
     </style>
     <script src="{{ URL::asset('assets/map/js/jquery1.11.3.min.js')}}"></script>
     <script src="{{ URL::asset('assets/map/js/jquery.blockUI.js')}}"></script>
@@ -63,7 +62,7 @@
                                 <li class="active"><a href="{{url('/vendor/customer/'.$client->id.'/templates')}}">Templates</a>
                                 </li>
                                 <li>
-                                    <a href="{{url('/vendor/customer/'.$client->id.'/orders')}}">Orders</a>
+                                    <a href="{{url('/vendor/customer/'.$client->id.'/jobs')}}">Jobs</a>
                                 </li>
                                 <li><a href="{{url('/vendor/customer/'.$client->id.'/billing')}}">Billing</a></li>
                                 <li><a href="{{url('/vendor/customer/'.$client->id.'/documents')}}" >Documents</a></li>

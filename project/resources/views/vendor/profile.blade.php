@@ -18,11 +18,12 @@ $startTime = date('Y-m-d 00:00:00');
 $endTime = date('Y-m-d 23:59:59');
 
 $urlTime = "";
-
 ?> 
+
 @extends('vendor.includes.master-vendor')
 
 @section('content')
+
 <div class="row">
 	@if(Session::has('message'))
         <div class="alert alert-success alert-dismissable">
@@ -91,7 +92,7 @@ $urlTime = "";
 							<div class="panel panel-default">
 								<div class="panel-heading"> 
 									<div class="top-title">
-										<h3>Orders</h3>
+										<h3>Jobs</h3>
 									</div>
 								</div>
 								<div class="panel-body">

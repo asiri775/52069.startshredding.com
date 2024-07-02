@@ -36,9 +36,8 @@ if(isset($_GET['time'])){
 			break;
 	}	
 }else{
-header("Location: ".$fullUrlCurrent."?time=all");exit;
+	header("Location: ".$fullUrlCurrent."?time=all");exit;
 }
-
 
 $SaleSummary = DB::table('ordered_products')->where('vendorid',Auth::user()->id)->where('created_at','>=',$startTime)->where('created_at','<=',$endTime)->sum("cost");
 
@@ -63,20 +62,18 @@ if($allOrders!=null){
 	}
 }
 
-
 $orderCompletedSort = "";
 $orderTransitSort = "";
 
 if(isset($_GET['order_completed']) && $_GET['order_completed']!=""){
 	$orderCompletedSort = $_GET['order_completed'];
 }
+
 if(isset($_GET['order_transit']) && $_GET['order_transit']!=""){
 	$orderTransitSort = $_GET['order_transit'];
 }
+?>
 
-
-
-?> 
 @extends('vendor.includes.master-vendor')
 
 @section('content')
@@ -122,10 +119,10 @@ if(isset($_GET['order_transit']) && $_GET['order_transit']!=""){
 				</div>
 				<div class="sales">
 					<p><b>Sales:</b> <a href="javascript:;">{{$settings[0]->currency_sign}}<?=round($SaleSummary,2)?></a></p>
-					<p><b>Orders:</b> <span><?=count($allOrders)?></span></p>
+					<p><b>Jobs:</b> <span><?=count($allOrders)?></span></p>
 				</div>
 				<div class="order-title">
-					<h4>Orders Summary</h4>
+					<h4>Jobs Summary</h4>
 				</div> 
 				<div class="order-list">
 					<ul>
@@ -151,7 +148,7 @@ if(isset($_GET['order_transit']) && $_GET['order_transit']!=""){
 							<div class="panel panel-default">
 								<div class="panel-heading"> 
 									<div class="top-title">
-										<h3>Active Orders</h3>
+										<h3>Active Jobs</h3>
 									</div>
 								</div>
 								<div class="panel-body">
@@ -160,7 +157,7 @@ if(isset($_GET['order_transit']) && $_GET['order_transit']!=""){
 											<thead>
 											<tr>
 												<th style="width: 10px"></th>
-												<th>Order#</th>
+												<th>Job#</th>
 												<th>Client</th>
 												<th>Status</th>
 												<th>Date</th>
@@ -216,7 +213,7 @@ if(isset($_GET['order_transit']) && $_GET['order_transit']!=""){
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<div class="top-title">
-										<h3>Orders In Transit</h3> 
+										<h3>Jobs In Transit</h3> 
 									</div>
 									<form method="get" action="<?=$fullUrlCurrent?>" id="filterModelTraOrders">
 										<input type="hidden" value="<?=$urlTime?>" name="time">
@@ -244,7 +241,7 @@ if(isset($_GET['order_transit']) && $_GET['order_transit']!=""){
 												<thead>
 													<tr>
 														<th style="width: 10px"></th>
-														<th>Order#</th>
+														<th>Job#</th>
 														<th>Client</th>
 														<th>Status</th>
 														<th>Date</th>
@@ -310,7 +307,7 @@ if(isset($_GET['order_transit']) && $_GET['order_transit']!=""){
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<div class="top-title">
-										<h3>Completed Orders</h3>
+										<h3>Completed Jobs</h3>
 									</div> 
 									<form method="get" action="<?=$fullUrlCurrent?>" id="filterModelCompleOrders">
 										<input type="hidden" value="<?=$urlTime?>" name="time">
@@ -330,7 +327,7 @@ if(isset($_GET['order_transit']) && $_GET['order_transit']!=""){
 													<tr>
 														<th style="width: 10px"></th>
 														<th>Complete Date</th>
-														<th>Order#</th>
+														<th>Job#</th>
 														<th>Client</th>
 														<th>Status</th>
 														<th>Action</th>

@@ -47,13 +47,13 @@
             background-image: unset!important;
         }
         .form-inline select.form-control {
-         min-width: 100%!important;
-      }
-      .custom-calendar {
-    margin-top: unset;
-       }
-        
+            min-width: 100%!important;
+        }
+        .custom-calendar {
+            margin-top: unset;
+        }
     </style>
+    
     <script src="{{ URL::asset('assets/map/js/jquery1.11.3.min.js')}}"></script>
     <script src="{{ URL::asset('assets/map/js/jquery.blockUI.js')}}"></script>
 
@@ -83,7 +83,7 @@
                             <ul class="nav nav-tabs">
                                 <li><a href="{{url('/vendor/customer/'.$client->id)}}">Overview</a></li>
                                 <li><a href="{{url('/vendor/customer/'.$client->id.'/templates')}}">Templates</a></li>
-                                <li><a href="{{url('/vendor/customer/'.$client->id.'/orders')}}">Orders</a></li>
+                                <li><a href="{{url('/vendor/customer/'.$client->id.'/jobs')}}">Jobs</a></li>
                                 <li><a href="{{url('/vendor/customer/'.$client->id.'/billing')}}">Billing</a></li>
                                 <li class="active"><a href="{{url('/vendor/customer/'.$client->id.'/documents')}}">Documents</a></li>
                             </ul>

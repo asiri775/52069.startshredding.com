@@ -5,36 +5,36 @@ $assetVersion = 1.4;
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" type="image/png" href="{{url('/')}}/assets/images/{{$settings[0]->favicon}}" />
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+   <meta name="csrf-token" content="{{ csrf_token() }}">
+   <link rel="icon" type="image/png" href="{{url('/')}}/assets/images/{{$settings[0]->favicon}}" />
 
-    <title>{{$settings[0]->title}} - Vendor Panel</title> 
-    
-    <link href="{{ URL::asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/css/font-awesome.min.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/css/animate.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/css/owl.carousel.css')}}" rel="stylesheet">  
-    <link href="{{ URL::asset('assets/css/bootstrap-slider.min.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/css/genius-slider.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/css/go-style.css')}}" rel="stylesheet">
+   <title>{{$settings[0]->title}} - Vendor Panel</title> 
+   
+   <link href="{{ URL::asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
+   <link href="{{ URL::asset('assets/css/font-awesome.min.css')}}" rel="stylesheet">
+   <link href="{{ URL::asset('assets/css/animate.css')}}" rel="stylesheet">
+   <link href="{{ URL::asset('assets/css/owl.carousel.css')}}" rel="stylesheet">  
+   <link href="{{ URL::asset('assets/css/bootstrap-slider.min.css')}}" rel="stylesheet">
+   <link href="{{ URL::asset('assets/css/genius-slider.css')}}" rel="stylesheet">
+   <link href="{{ URL::asset('assets/css/go-style.css')}}" rel="stylesheet">
 
-    <link href="{{ URL::asset('assets/css/style.css')}}" rel="stylesheet">
-	<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
-    <link href="{{ URL::asset('assets/css/responsive.css')}}" rel="stylesheet"> 
-    <link href="{{ URL::asset('assets/vendor/css/custom.css')}}" rel="stylesheet">
-    
-    <link href='https://fonts.googleapis.com/css?family=Poppins:300,700' rel='stylesheet' type='text/css'>
-    
-    <script>
-		var baseUrl = '{!! url('/') !!}';
-	    var mainurl = '{{url('/')}}';
-	    var currency = '{{$settings[0]->currency_sign}}';
-	   //  var language = {!! json_encode($language) !!}; 
-	</script>
-	<script src="{{ URL::asset('assets/js/jquery.min.js')}}"></script>
+   <link href="{{ URL::asset('assets/css/style.css')}}" rel="stylesheet">
+   <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+   <link href="{{ URL::asset('assets/css/responsive.css')}}" rel="stylesheet"> 
+   <link href="{{ URL::asset('assets/vendor/css/custom.css')}}" rel="stylesheet">
+   
+   <link href='https://fonts.googleapis.com/css?family=Poppins:300,700' rel='stylesheet' type='text/css'>
+   
+   <script>
+      var baseUrl = '{!! url('/') !!}';
+      var mainurl = '{{url('/')}}';
+      var currency = '{{$settings[0]->currency_sign}}';
+      //  var language = {!! json_encode($language) !!}; 
+   </script>
+   <script src="{{ URL::asset('assets/js/jquery.min.js')}}"></script>
 	<style>
 		.header-wrapper.style-10 .nav-overflow::before{
 			background:#000;  

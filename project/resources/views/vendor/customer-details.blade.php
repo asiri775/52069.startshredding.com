@@ -49,7 +49,7 @@
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="{{url('/vendor/customer/'.$client->id)}}" data-toggle="tab">Overview</a></li>
                                 <li><a href="{{url('/vendor/customer/'.$client->id.'/templates')}}">Templates</a></li>
-                                <li><a href="{{url('/vendor/customer/'.$client->id.'/orders')}}" >Orders</a></li>
+                                <li><a href="{{url('/vendor/customer/'.$client->id.'/jobs')}}" >Jobs</a></li>
                                 <li><a href="{{url('/vendor/customer/'.$client->id.'/billing')}}">Billing</a></li>
                                 <li><a href="{{url('/vendor/customer/'.$client->id.'/documents')}}" >Documents</a></li>
                             </ul>
@@ -111,6 +111,7 @@
             </div>
         </div>
     </div>
+
     <script>
         $(function () {
             $('#users-table').DataTable({
@@ -129,6 +130,7 @@
             });
         });
     </script>
+
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
@@ -139,7 +141,6 @@
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
     <script src="http://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-
 @stop
 
 @section('footer')

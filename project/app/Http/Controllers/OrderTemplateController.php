@@ -778,7 +778,7 @@ class OrderTemplateController extends Controller
             $product->delete();
         }
         Session::flash('message', 'Order has been successfully Deleted');
-        return Redirect('/vendor/customer/' . $customerid . '/orders?orderId=&quickdate=&fromTime=&toTime=&status=&method=&type=&orderForm=Search');
+        return Redirect('/vendor/customer/' . $customerid . '/jobs?orderId=&quickdate=&fromTime=&toTime=&status=&method=&type=&orderForm=Search');
     }
 
     public function getMonthRange($start_date, $end_date, $months_apart, $days_allowed)
@@ -1259,6 +1259,7 @@ class OrderTemplateController extends Controller
             } catch (\Exception $ex) {
                 //print_r($ex);
             }
+            
             //set success message and redirect to bookings.show
             Session::flash('message', __('Vendor repeat orders invoices successfully sent.'));
             return Redirect('/vendor/order-template-history/' . $customerid . '/' . $order->template_id . '/');

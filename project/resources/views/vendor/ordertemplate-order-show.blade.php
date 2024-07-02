@@ -13,17 +13,19 @@
             width: 25% !important;
         }
     </style>
+    
     <div class="page-title row">
         <h2>Booking Date: {{date('Y-m-d', strtotime($order->booking_date))}}</h2>
         <div style="float: right;">
         </div>
     </div>
+
     <div class="bg-white row">
         <div class="panel-body-custom tableContainParent panel col-md-12 col-lg-12 col-sm-12 left-tab">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="top-title">
-                        <h3>Order Details</h3>
+                        <h3>Job Details</h3>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -116,7 +118,7 @@
                     </div>
                 </div>
             </div>
-            <a href="/vendor/customer/{{$order->customerid}}/orders" class="btn btn-success float-right my-2">Back To Customer
+            <a href="/vendor/customer/{{$order->customerid}}/jobs" class="btn btn-success float-right my-2">Back To Customer
                 Account</a>
         </div>
     </div>

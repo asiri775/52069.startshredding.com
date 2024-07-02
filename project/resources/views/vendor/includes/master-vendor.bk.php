@@ -8,7 +8,7 @@
     <meta name="author" content="GeniusOcean">
     <link rel="icon" type="image/png" href="{{url('/')}}/assets/images/{{$settings[0]->favicon}}" />
 
-    <title>{{$settings[0]->title}} - Vendor Panel</title>
+    <title>{{ $settings[0]->title }} - Vendor Panel</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ URL::asset('assets/vendor/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -63,7 +63,7 @@
                 <a href="{!! url('vendor/dashboard') !!}"><i class="fa fa-fw fa-home"></i>  Dashboard</a>
             </li>
             <li>
-                <a href="{!! url('vendor/orders') !!}"><i class="fa fa-fw fa-usd"></i> Orders</a>
+                <a href="{!! url('vendor/jobs') !!}"><i class="fa fa-fw fa-usd"></i> Jobs</a>
             </li>
             <li>
                 <a href="{!! url('vendor/products') !!}"><i class="fa fa-fw fa-shopping-cart"></i> Products</a>

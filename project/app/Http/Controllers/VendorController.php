@@ -49,7 +49,8 @@ class VendorController extends Controller
         return view('vendor.dashboard');
     }
 
-	public function vieworders($status) {
+    public function vieworders($status)
+    {
         $orders = array();
         $searchSort = "";
         $text = "All Orders";
@@ -87,7 +88,8 @@ class VendorController extends Controller
         return view('vendor.vieworders', compact('orders', 'text', 'filterStatus', 'q'));
     }
 
-    public function profile($id) {
+    public function profile($id)
+    {
         $orders = array();
         $searchSort = "";
         $text = "User Profile";
@@ -120,8 +122,6 @@ class VendorController extends Controller
 
 
                 $totalOrders = DB::select("select * from orders where id in ($orderIdsStr) and customerid='$id'");
-
-
             }
 
             //$totalOrders=DB::select("select * from ordered_products where vendorid='$vendorId' and orderid in ($orderIdsString)");
@@ -146,20 +146,17 @@ class VendorController extends Controller
     {
         $order = Order::findOrFail($id);
         if ($order != null) {
-
         }
         $model = DB::select("select * from ordered_products where orderid='$id'");
-        
-        
-        $orderCheck=Order::where("id",$id)->where("order_type",3)->first();
-        if($orderCheck){
-            $orderinquiry=OrderInquiry::where("order_id",$id)->first();
-             return view('vendor.details', compact('model', 'order','orderinquiry'));
+
+
+        $orderCheck = Order::where("id", $id)->where("order_type", 3)->first();
+        if ($orderCheck) {
+            $orderinquiry = OrderInquiry::where("order_id", $id)->first();
+            return view('vendor.details', compact('model', 'order', 'orderinquiry'));
+        } else {
+            return view('vendor.details', compact('model', 'order'));
         }
-        else {
-             return view('vendor.details', compact('model', 'order'));
-        }
-           
     }
 
     public function withdraws()
@@ -197,7 +194,6 @@ class VendorController extends Controller
                         $startTime = date('Y-m-d 00:00:00', strtotime('first day of January 1970'));
                         $endTime = date('Y-m-d H:i:s');
                         break;
-
                 }
 
                 $query .= " and  created_at>='" . $startTime . "' and created_at<='" . $endTime . "'";
@@ -211,7 +207,6 @@ class VendorController extends Controller
                 if (isset($_GET['toTime']) && $_GET['toTime'] != "") {
                     $query .= " and  created_at<='" . date('Y-m-d 23:59:59', strtotime($_GET['toTime'])) . "'";
                 }
-
             }
             if (isset($_GET['process']) && $_GET['process'] != "") {
                 $query .= " and  status='" . $_GET['process'] . "'";
@@ -246,7 +241,6 @@ class VendorController extends Controller
             }
 
             $earnings = DB::select(DB::raw($sqlQuery));
-
         } else if (isset($_GET['sideTime']) && $_GET['sideTime'] != "") {
             $startTime = date('Y-m-d 00:00:00');
             $endTime = date('Y-m-d 23:59:59');
@@ -306,7 +300,6 @@ class VendorController extends Controller
                         $startTime = date('Y-m-d 00:00:00', strtotime('first day of January 1970'));
                         $endTime = date('Y-m-d H:i:s');
                         break;
-
                 }
 
                 $query .= " and  created_at>='" . $startTime . "' and created_at<='" . $endTime . "'";
@@ -320,7 +313,6 @@ class VendorController extends Controller
                 if (isset($_GET['toTime']) && $_GET['toTime'] != "") {
                     $query .= " and  created_at<='" . date('Y-m-d 23:59:59', strtotime($_GET['toTime'])) . "'";
                 }
-
             }
 
             $getHistory = DB::select('SELECT * FROM `withdraws` WHERE vendorid = ' . Auth::user()->id . $query);
@@ -334,7 +326,8 @@ class VendorController extends Controller
         return view('vendor.withdraws', compact('withdraws', 'earnings', 'getHistory'));
     }
 
-    public function customers() {
+    public function customers()
+    {
         $customers = VendorCustomers::where('vendor_customers.vendor_id', Auth::user()->id)
             ->where('vendor_customers.status', 1)
             ->join('clients', 'vendor_customers.customer_id', '=', 'clients.id')
@@ -354,7 +347,6 @@ class VendorController extends Controller
                 $temp[7] = (string)$customer->zip;
 
                 $customer_array[] = $temp;
-
             } else {
                 continue;
             }
@@ -374,7 +366,6 @@ class VendorController extends Controller
 
 
         return view('vendor.customer', compact('customers'));
-
     }
 
     public function pos()
@@ -429,7 +420,6 @@ class VendorController extends Controller
             } else {
                 $query = "SELECT * FROM `ordered_products` WHERE `vendorid`=" . Auth::user()->id . " and " . $s . " order by id desc";
             }
-
         } else {
             $query = "SELECT * FROM `ordered_products` WHERE `vendorid`=" . Auth::user()->id . " and status in (3,4) order by id desc";
         }
@@ -459,7 +449,6 @@ class VendorController extends Controller
             } else {
                 $query2 = "SELECT * FROM `ordered_products` WHERE `vendorid`=" . Auth::user()->id . " and " . $s2 . " order by id desc";
             }
-
         } else {
             $query2 = "SELECT * FROM `ordered_products` WHERE `vendorid`=" . Auth::user()->id . " and status in (2,5,6) order by id desc";
         }
@@ -504,7 +493,6 @@ class VendorController extends Controller
                 $newwithdraw->save();
 
                 return redirect()->back()->with('message', 'Withdraw Request Sent Successfully.');
-
             } else {
                 return redirect()->back()->with('error', 'Insufficient Balance.')->withInput();
             }
@@ -540,7 +528,8 @@ class VendorController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         $client = Clients::whereId($id)->first();
 
         if (!empty($client)) {
@@ -553,12 +542,12 @@ class VendorController extends Controller
     public function documents($id)
     {
         $client = Clients::whereId($id)->first();
-        $documents =DB::table('clients')
-                        ->join('orders', 'clients.id', '=', 'orders.customerid')
-                        ->join('service_agreements', 'orders.id', '=', 'service_agreements.order_id')
-                        ->select('service_agreements.*', 'orders.booking_date', 'orders.pay_amount')
-                        ->where('clients.id', $id)
-                        ->get();
+        $documents = DB::table('clients')
+            ->join('orders', 'clients.id', '=', 'orders.customerid')
+            ->join('service_agreements', 'orders.id', '=', 'service_agreements.order_id')
+            ->select('service_agreements.*', 'orders.booking_date', 'orders.pay_amount')
+            ->where('clients.id', $id)
+            ->get();
 
         if (!empty($client)) {
             return view('vendor.customer-documents', compact('client', 'documents'));
@@ -567,7 +556,8 @@ class VendorController extends Controller
         }
     }
 
-    public function billing($id) {
+    public function billing($id)
+    {
         $client = Clients::whereId($id)->first();
         $card_details = ClientCreditCard::where('client_id', $client->id)->orderBy('id', 'desc')->get();
         if (!empty($client)) {
@@ -577,12 +567,13 @@ class VendorController extends Controller
         }
     }
 
-    public function edit_card($id){
+    public function edit_card($id)
+    {
 
         $card_detail = ClientCreditCard::find($id);
         $user = Clients::find($card_detail->client_id);
         $client = $user;
-        return view('vendor.billing-edit', compact('user','client', 'card_detail'));
+        return view('vendor.billing-edit', compact('user', 'client', 'card_detail'));
     }
 
     /**
@@ -594,19 +585,19 @@ class VendorController extends Controller
     public function templates($id)
     {
 
-          $client = Clients::whereId($id)->first();
-          $query = "SELECT * FROM `job_type`";
-          $jobType = DB::select(DB::raw($query));
-//        $query2 = "SELECT * FROM `orders`";
-//        $orders=OrderedProducts::select('orderid')->where('vendorid',Auth::user()->id)->get();
+        $client = Clients::whereId($id)->first();
+        $query = "SELECT * FROM `job_type`";
+        $jobType = DB::select(DB::raw($query));
+        //        $query2 = "SELECT * FROM `orders`";
+        //        $orders=OrderedProducts::select('orderid')->where('vendorid',Auth::user()->id)->get();
         $customers = OrderTemplate::join('clients', 'order_templates.client_id', '=', 'clients.id')
             ->join('vendor_customers', 'vendor_customers.customer_id', '=', 'order_templates.client_id')
-//            ->join('job_type', 'order_templates.job_type_id', '=', 'job_type.id')
+            //            ->join('job_type', 'order_templates.job_type_id', '=', 'job_type.id')
             ->select('clients.name')
             ->where('vendor_customers.vendor_id', Auth::user()->id)->groupBy('clients.name');
         //print_r($customers);die;
         if (!empty($customers)) {
-            return view('vendor.customer-templates', compact('customers','client','jobType'));
+            return view('vendor.customer-templates', compact('customers', 'client', 'jobType'));
         } else {
             return NULL;
         }
@@ -619,7 +610,8 @@ class VendorController extends Controller
      * @return \Illuminate\Http\Response
      */
     // vendor/customer/{id}/jobs
-    public function orders($id) {
+    public function jobs($id)
+    {
         if (isset($_GET['orderForm'])) {
             $query = "";
 
@@ -653,7 +645,6 @@ class VendorController extends Controller
                         $startTime = date('Y-m-d 00:00:00', strtotime('first day of January 1970'));
                         $endTime = date('Y-m-d H:i:s');
                         break;
-
                 }
 
                 $query .= " and  ordered_products.created_at>='" . $startTime . "' and ordered_products.created_at<='" . $endTime . "'";
@@ -665,14 +656,13 @@ class VendorController extends Controller
                 if (isset($_GET['toTime']) && $_GET['toTime'] != "") {
                     $query .= " and  ordered_products.created_at<='" . date('Y-m-d 23:59:59', strtotime($_GET['toTime'])) . "'";
                 }
-
             }
 
             if (isset($_GET['process']) && $_GET['process'] != "") {
                 $query .= " and  ordered_products.status='" . $_GET['process'] . "'";
             }
 
-           // $query .= " AND  orders.order_type=3 AND orders.customerid=".$id;
+            // $query .= " AND  orders.order_type=3 AND orders.customerid=".$id;
 
             if (isset($_GET['paidStatus']) && $_GET['paidStatus'] != "") {
                 $query .= " and  ordered_products.payment='" . $_GET['paidStatus'] . "'";
@@ -736,15 +726,13 @@ class VendorController extends Controller
         $query = "SELECT * FROM `job_type`";
         $jobType = DB::select(DB::raw($query));
         $client = Clients::whereId($id)->first();
-        
+
         if (!empty($client)) {
-            return view('vendor.customer-orders', compact('client','orders','jobType'));
+            return view('vendor.customer-orders', compact('client', 'orders', 'jobType'));
         } else {
             return NULL;
         }
-
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -782,7 +770,6 @@ class VendorController extends Controller
 
     public function repeatOrders()
     {
-
     }
 
 
@@ -821,7 +808,6 @@ class VendorController extends Controller
                         $startTime = date('Y-m-d 00:00:00', strtotime('first day of January 1970'));
                         $endTime = date('Y-m-d H:i:s');
                         break;
-
                 }
 
                 $query .= " and  ordered_products.created_at>='" . $startTime . "' and ordered_products.created_at<='" . $endTime . "'";
@@ -833,7 +819,6 @@ class VendorController extends Controller
                 if (isset($_GET['toTime']) && $_GET['toTime'] != "") {
                     $query .= " and  ordered_products.created_at<='" . date('Y-m-d 23:59:59', strtotime($_GET['toTime'])) . "'";
                 }
-
             }
 
             if (isset($_GET['process']) && $_GET['process'] != "") {
@@ -894,12 +879,10 @@ class VendorController extends Controller
                     $temp[10] = $customer->payment == 'completed' ? 'Paid' : ($customer->payment == 'pending' ? 'Not Paid' : 'Partial Paid');
 
                     $customer_array[] = $temp;
-
                 } else {
                     continue;
                 }
             }
-
         } else {
             $orders = OrderedProducts::where('vendorid', Auth::user()->id)->orderBy('id', 'desc')->get();
         }
@@ -907,11 +890,10 @@ class VendorController extends Controller
         $jobType = DB::select(DB::raw($query));
         $client = Clients::whereId($id)->first();
         if (!empty($client)) {
-            return view('vendor.ordertemplate-history', compact('client','orders','jobType'));
+            return view('vendor.ordertemplate-history', compact('client', 'orders', 'jobType'));
         } else {
             return NULL;
         }
-
     }
 
     public function sa_link(Request $request)
@@ -919,9 +901,9 @@ class VendorController extends Controller
         $id = $request->id;
         $vendorId = Auth::user()->id;
         $order = Order::findOrFail($id);
-        
+
         $user = Clients::find($order->customerid);
-        if(count($order->get()) != 0){
+        if (count($order->get()) != 0) {
 
             // $serverUrl = url('/');
 
@@ -935,42 +917,42 @@ class VendorController extends Controller
             $order->token = $token;
             $order->update();
             $url = URL::temporarySignedRoute(
-                'confirm.service', 
+                'confirm.service',
                 now()->addHours(24), // Expiry time
                 ['token' => $token] // Additional parameters
             );
             try {
                 // Send the email
                 Mail::to($user->email)->send(new ServiceAgreementMail($id, $url));
-                $userAddressSplitted = explode(", ", $order->customer_address, 1); 
-                $shippingAddressSplitted = $order->shipping_address? 
-                    explode(", ", $order->shipping_address, 1): $userAddressSplitted;
+                $userAddressSplitted = explode(", ", $order->customer_address, 1);
+                $shippingAddressSplitted = $order->shipping_address ?
+                    explode(", ", $order->shipping_address, 1) : $userAddressSplitted;
                 $validator = Validator::make(['order_id' => $order->id], [
                     'order_id' => 'required|max:255|unique:service_agreements'
                 ]);
-                
+
                 if ($validator->fails()) {
                     // return redirect()->back()->with('message', 'Service Agreement link Sent Successfully.');
                     return json_encode(['message' => 'Service Agreement link Sent Successfully.']);
                 }
-        
+
                 $serviceAgreement = ServiceAgreement::Create([
                     "company_name" => $user->business_name ? $user->business_name : "",
                     "contact_name" => $user->name,
                     "phone_number" => $user->phone,
                     "email" => $user->email,
                     "billing_address_1" => $userAddressSplitted[0],
-                    "billing_address_2" => count($userAddressSplitted)>1? $userAddressSplitted[1] : "",
+                    "billing_address_2" => count($userAddressSplitted) > 1 ? $userAddressSplitted[1] : "",
                     "billing_city" => $order->customer_city,
                     "billing_state" => $user->Province_State,
                     "billing_postal_code" => $order->customer_zip,
                     "billing_phone" => $order->customer_phone,
                     "billing_email" => $order->customer_email,
                     "shipping_address_1" => $shippingAddressSplitted[0],
-                    "shipping_address_2" => count($shippingAddressSplitted)>1? $shippingAddressSplitted[1] : "",
-                    "shipping_city" => $order->shipping_city ? $order->shipping_city: $order->customer_city,
+                    "shipping_address_2" => count($shippingAddressSplitted) > 1 ? $shippingAddressSplitted[1] : "",
+                    "shipping_city" => $order->shipping_city ? $order->shipping_city : $order->customer_city,
                     "shipping_state" => "",
-                    "shipping_postal_code" => $order->shipping_zip? $order->shipping_zip: $order->customer_zip,
+                    "shipping_postal_code" => $order->shipping_zip ? $order->shipping_zip : $order->customer_zip,
                     "shipping_phone" => $order->shipping_phone ? $order->shipping_phone : $order->customer_phone,
                     "shipping_email" => $order->shipping_email ? $order->shipping_email : $order->customer_email,
                     "order_id" => $order->id,
@@ -983,12 +965,10 @@ class VendorController extends Controller
                 // return redirect()->back()->with('errors', 'Service Agreement link Sent Failed.');
                 return json_encode(['errors' => 'Service Agreement link Sent Failed.']);
             }
-        }
-        else {
+        } else {
             // return redirect()->back()->with('errors', 'Service Agreement link Sent Failed.');
             return json_encode(['errors' => 'Service Agreement link Sent Failed.']);
         }
-        
     }
 
     public function service_agreement($id)
@@ -997,12 +977,12 @@ class VendorController extends Controller
         $customer = Clients::find($order->customerid);
         $user = $customer;
         $documents = ServiceAgreement::where('order_id', $id)->first();
-        $order_details =DB::table('ordered_products')
-                        ->join('products', 'products.id', '=', 'ordered_products.productid')
-                        ->select('ordered_products.*','products.title')
-                        ->where('ordered_products.orderid', $order->id)
-                        ->get();
-        return view('home.vendor-service-agreement', compact('user','customer','documents', 'order','order_details'));
+        $order_details = DB::table('ordered_products')
+            ->join('products', 'products.id', '=', 'ordered_products.productid')
+            ->select('ordered_products.*', 'products.title')
+            ->where('ordered_products.orderid', $order->id)
+            ->get();
+        return view('home.vendor-service-agreement', compact('user', 'customer', 'documents', 'order', 'order_details'));
     }
 
     public function complete_sa(Request $request)
@@ -1010,28 +990,26 @@ class VendorController extends Controller
         $serviceAgreement = ServiceAgreement::updateOrCreate(['order_id' => $request->order_id]);
         $serviceAgreement->fill($request->all());
         $serviceAgreement->update();
-        return redirect('/vendor/details/'.$request->order_id)->with('message', 'Completed Document Successfully');
+        return redirect('/vendor/details/' . $request->order_id)->with('message', 'Completed Document Successfully');
     }
 
     public function order_print($id)
     {
         $order = Order::findOrFail($id);
         if ($order != null) {
-
         }
         $model = DB::select("select * from ordered_products where orderid='$id'");
-        $orderCheck=Order::where("id",$id)->where("order_type",3)->first();
+        $orderCheck = Order::where("id", $id)->where("order_type", 3)->first();
         view()->share('model', $model);
         view()->share('order', $order);
-        
+
         return view('home.shop.order_pdf_print');
-        if($orderCheck){
-            $orderinquiry=OrderInquiry::where("order_id",$id)->first();
+        if ($orderCheck) {
+            $orderinquiry = OrderInquiry::where("order_id", $id)->first();
             view()->share('orderinquiry', $orderinquiry);
-             return view('vendor.order_print', compact('model', 'order','orderinquiry'));
-        }
-        else {
-             return view('vendor.order_print', compact('model', 'order'));
+            return view('vendor.order_print', compact('model', 'order', 'orderinquiry'));
+        } else {
+            return view('vendor.order_print', compact('model', 'order'));
         }
     }
 
@@ -1041,15 +1019,15 @@ class VendorController extends Controller
         $customer = Clients::find($order->customerid);
         $user = $customer;
         $documents = ServiceAgreement::where('order_id', $id)->first();
-        $order_details =DB::table('ordered_products')
-                        ->join('products', 'products.id', '=', 'ordered_products.productid')
-                        ->select('ordered_products.*','products.title')
-                        ->where('ordered_products.orderid', $order->id)
-                        ->get();
+        $order_details = DB::table('ordered_products')
+            ->join('products', 'products.id', '=', 'ordered_products.productid')
+            ->select('ordered_products.*', 'products.title')
+            ->where('ordered_products.orderid', $order->id)
+            ->get();
         view()->share('documents', $documents);
         view()->share('order', $order);
         view()->share('order_details', $order_details);
-        return view('vendor.service_agreement_print', compact('order','documents', 'order_details'));
+        return view('vendor.service_agreement_print', compact('order', 'documents', 'order_details'));
     }
 
     public function service_agreement_download($id)
@@ -1058,22 +1036,22 @@ class VendorController extends Controller
         $customer = Clients::find($order->customerid);
         $user = $customer;
         $documents = ServiceAgreement::where('order_id', $id)->first();
-        $order_details =DB::table('ordered_products')
-                        ->join('products', 'products.id', '=', 'ordered_products.productid')
-                        ->select('ordered_products.*','products.title')
-                        ->where('ordered_products.orderid', $order->id)
-                        ->get();
+        $order_details = DB::table('ordered_products')
+            ->join('products', 'products.id', '=', 'ordered_products.productid')
+            ->select('ordered_products.*', 'products.title')
+            ->where('ordered_products.orderid', $order->id)
+            ->get();
         view()->share('documents', $documents);
         view()->share('order', $order);
         view()->share('order_details', $order_details);
         // return view('vendor.service_agreement_download');
-        
+
         $booking_date = date('mdy', strtotime($order->booking_date));
-        $pdf = PDF::loadView('vendor.service_agreement_download',compact('order','documents', 'order_details'));
-        return $pdf->download('SA'.$order->id.'_'.ucwords($user->first_name) . ucwords($user->last_name).'_'.$booking_date.'.pdf');
+        $pdf = PDF::loadView('vendor.service_agreement_download', compact('order', 'documents', 'order_details'));
+        return $pdf->download('SA' . $order->id . '_' . ucwords($user->first_name) . ucwords($user->last_name) . '_' . $booking_date . '.pdf');
     }
 
-    
+
 
     public function service_agreement_email($id)
     {
@@ -1081,23 +1059,23 @@ class VendorController extends Controller
         $customer = Clients::find($order->customerid);
         $user = $customer;
         $documents = ServiceAgreement::where('order_id', $id)->first();
-        $order_details =DB::table('ordered_products')
-                        ->join('products', 'products.id', '=', 'ordered_products.productid')
-                        ->select('ordered_products.*','products.title')
-                        ->where('ordered_products.orderid', $order->id)
-                        ->get();
+        $order_details = DB::table('ordered_products')
+            ->join('products', 'products.id', '=', 'ordered_products.productid')
+            ->select('ordered_products.*', 'products.title')
+            ->where('ordered_products.orderid', $order->id)
+            ->get();
         view()->share('documents', $documents);
         view()->share('order', $order);
         view()->share('order_details', $order_details);
-        $pdf = PDF::loadView('vendor.service_agreement_download',compact('order','documents', 'order_details'));
+        $pdf = PDF::loadView('vendor.service_agreement_download', compact('order', 'documents', 'order_details'));
 
 
         $pdfContent = $pdf->output();
 
         // Save PDF to storage
         $booking_date = date('mdy', strtotime($order->booking_date));
-        $pdfPath = storage_path('app/SA'.$order->id.'_'.ucwords($user->first_name) . ucwords($user->last_name).'_'.$booking_date.'.pdf');
-        if(file_exists($pdfPath)){
+        $pdfPath = storage_path('app/SA' . $order->id . '_' . ucwords($user->first_name) . ucwords($user->last_name) . '_' . $booking_date . '.pdf');
+        if (file_exists($pdfPath)) {
             unlink($pdfPath);
         }
         file_put_contents($pdfPath, $pdfContent);
@@ -1107,17 +1085,16 @@ class VendorController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('message', 'Email sent Failed');
         }
-        
     }
 
     public function upload_index($id)
     {
         $order_id = $id;
-        $documents =DB::table('upload_documents')
-                        ->join('orders', 'orders.doc_id', '=', 'upload_documents.id')
-                        ->select('upload_documents.*')
-                        ->get();
-        return view('home.shop.documents.upload_index', compact('order_id','documents'));
+        $documents = DB::table('upload_documents')
+            ->join('orders', 'orders.doc_id', '=', 'upload_documents.id')
+            ->select('upload_documents.*')
+            ->get();
+        return view('home.shop.documents.upload_index', compact('order_id', 'documents'));
     }
 
     public function delete_doc($id)
@@ -1129,11 +1106,11 @@ class VendorController extends Controller
         }
         $document->delete();
         $order = Order::where('doc_id', $id);
-        if(is_null($order)){
+        if (is_null($order)) {
             $order->doc_id = "";
             $order->update();
         }
-        
+
         return redirect()->back()->with('message', "Document deleted Successfully");
     }
 
@@ -1144,10 +1121,10 @@ class VendorController extends Controller
             'order_date' => 'required|date',
             'document' => 'required|file',
         ]);
-    
+
         // Process the uploaded document
         $file = $request->file('document');
-        if($file->isValid()){
+        if ($file->isValid()) {
 
             // Save the file to storage
             $path = $file->store('document_uploads');
@@ -1155,7 +1132,7 @@ class VendorController extends Controller
             // Save file information to the database
             $order = Order::find($request->order_number);
             $oldFile1 = Upload_document::where('order_id', $request->order_number)->first();
-            if(is_null($oldFile1)){
+            if (is_null($oldFile1)) {
                 $newFile = new Upload_document;
                 $newFile->order_id = $request->order_number;
                 $newFile->order_date = $request->order_date;
@@ -1167,8 +1144,7 @@ class VendorController extends Controller
                 $order->doc_id = $doc_id;
                 $order->complete_date = $request->order_date;
                 $order->update();
-            }
-            else {
+            } else {
                 $oldFile = Upload_document::find($oldFile1->id);
                 $oldFile->order_date = $request->order_date;
                 $oldFile->doc_type = $file->getClientOriginalExtension();
@@ -1180,23 +1156,19 @@ class VendorController extends Controller
                 $order->complete_date = $request->order_date;
                 $order->update();
             }
-            
+
             // Save it to storage, database, or perform other operations
-            
+
             // Redirect back with a success message
             return redirect()->back()->with('message', 'Document uploaded successfully.');
-        }
-        else {
+        } else {
             return redirect()->back()->with('errors', ['Document upload failed.']);
         }
-
-        
-        
     }
 
     public function download_doc($id)
     {
-        
+
         $file = Upload_document::find($id);
         $filePath = $file->file_path;
         // Check if the file exists
@@ -1216,16 +1188,15 @@ class VendorController extends Controller
             return false;
         }
         $model = DB::select("select * from ordered_products where orderid='$id'");
-        $orderCheck=Order::where("id",$id)->where("order_type",3)->first();
+        $orderCheck = Order::where("id", $id)->where("order_type", 3)->first();
         view()->share('model', $model);
         view()->share('order', $order);
-        if($orderCheck){
-            $orderinquiry=OrderInquiry::where("order_id",$id)->first();
+        if ($orderCheck) {
+            $orderinquiry = OrderInquiry::where("order_id", $id)->first();
             view()->share('orderinquiry', $orderinquiry);
             $pdf = PDF::loadView('vendor.order_pdf');
             return $pdf->download('order' . $order->id . '.pdf');
-        }
-        else {
+        } else {
             $pdf = PDF::loadView('vendor.order_pdf');
             return $pdf->download('order' . $order->id . '.pdf');
         }
@@ -1235,13 +1206,12 @@ class VendorController extends Controller
     public function customer_orderDownload($id)
     {
         $order = Order::findOrFail($id);
-        if($order->order_type == 3){
+        if ($order->order_type == 3) {
             $products = OrderTemplateItem::where('order_template_id', $order->template_id)->get();
             // return view('vendor.custom_order_pdf', compact('order', 'products'));
             $pdf = PDF::loadview('vendor.customer_order_pdf', compact('order', 'products'));
             return $pdf->download('order#' . $order->id . '.pdf');
-        }
-        else {
+        } else {
             $products = OrderedProducts::where('orderid', $id)->get();
             // return view('vendor.ordertemplate-order-show', compact('order', 'products'));
             $pdf = PDF::loadview('vendor.customer_order2_pdf', compact('order', 'products'));
@@ -1252,18 +1222,16 @@ class VendorController extends Controller
     public function customer_orderPrint($id)
     {
         $order = Order::findOrFail($id);
-        if($order->order_type == 3){
+        if ($order->order_type == 3) {
             $products = OrderTemplateItem::where('order_template_id', $order->template_id)->get();
             return view('vendor.customer_order_print', compact('order', 'products'));
             // $pdf = PDF::loadview('vendor.customer_order_pdf', compact('order', 'products'));
             // return $pdf->download('order#' . $order->id . '.pdf');
-        }
-        else {
+        } else {
             $products = OrderedProducts::where('orderid', $id)->get();
             return view('vendor.customer_order2_print', compact('order', 'products'));
             // $pdf = PDF::loadview('vendor.customer_order2_pdf', compact('order', 'products'));
             // return $pdf->download('order#' . $order->id . '.pdf');
         }
     }
-
 }

@@ -113,7 +113,7 @@
                                                     <div class="col-md-2 col-xs-12">
                                                         <label>Job Type</label>
                                                         <select class="form-control" name="type" style="width: 100%;">
-                                                            <option value="">--Order Type--</option>
+                                                            <option value="">--Job Type--</option>
                                                             <?php foreach ($jobType as $type){ ?>
                                                             <option value="{{$type->id}}"
                                                                     <?php if(isset($_GET['type']) && $_GET['type'] == $type->id){?>selected<?php } ?>>{{$type->name}}</option>
@@ -550,14 +550,15 @@
     </div>
     <script>
         $(document).ready(function() {
-        $("#fromTime").datepicker();
-        $('.fromTimeCalendar').click(function() {
-            $("#fromTime").focus();
-        });
-        $("#toTime").datepicker();
-        $('.toTimeCalendar').click(function() {
-            $("#toTime").focus();
-        });
+            $("#fromTime").datepicker();
+            $('.fromTimeCalendar').click(function() {
+                $("#fromTime").focus();
+            });
+
+            $("#toTime").datepicker();
+            $('.toTimeCalendar').click(function() {
+                $("#toTime").focus();
+            });
         });
    </script>
 @stop
