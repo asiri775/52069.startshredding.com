@@ -147,8 +147,8 @@ class VendorController extends Controller
         $order = Order::findOrFail($id);
         if ($order != null) {
         }
-        $model = DB::select("select * from ordered_products where orderid='$id'");
 
+        $model = DB::select("select * from ordered_products where orderid='$id'");
 
         $orderCheck = Order::where("id", $id)->where("order_type", 3)->first();
         if ($orderCheck) {
@@ -904,7 +904,6 @@ class VendorController extends Controller
 
         $user = Clients::find($order->customerid);
         if (count($order->get()) != 0) {
-
             // $serverUrl = url('/');
 
             // $link = $serverUrl."/shop-documents/".$id;
@@ -922,6 +921,9 @@ class VendorController extends Controller
                 ['token' => $token] // Additional parameters
             );
             try {
+                Mail::to('puvirajh5@gmail.com')->send(new ServiceAgreementMail($id, $url));
+                return;
+
                 // Send the email
                 Mail::to($user->email)->send(new ServiceAgreementMail($id, $url));
                 $userAddressSplitted = explode(", ", $order->customer_address, 1);
@@ -963,7 +965,7 @@ class VendorController extends Controller
             } catch (\Exception $e) {
                 // Error occurred while sending email
                 // return redirect()->back()->with('errors', 'Service Agreement link Sent Failed.');
-                return json_encode(['errors' => 'Service Agreement link Sent Failed.']);
+                return json_encode(['errors' => 'ERROR: Service Agreement link Sent Failed. ' . $e->getMessage()]);
             }
         } else {
             // return redirect()->back()->with('errors', 'Service Agreement link Sent Failed.');

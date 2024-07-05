@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Middleware;
-
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
+
+use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class Authenticate extends Middleware
 {
@@ -16,6 +18,27 @@ class Authenticate extends Middleware
             return route('home.user');
         }
     }
+
+    public function handle($request, Closure $next, ...$guards)
+    {
+        foreach ($guards as $guard) {
+            if (!Auth::guard($guard)->check()) {
+                switch ($guard) {
+                    case 'profile':
+                        return redirect('/user/login');   
+                    case 'vendor':
+                        return redirect('/vendor');
+                    case 'plant':
+                        return redirect('/shop-sign');
+                    default:
+                        return redirect('/admin');
+                }
+            }
+        }
+
+        return $next($request);
+    }
+
     // public function handle($request, Closure $next, ...$guard)
     // {
     //     switch ($guard){

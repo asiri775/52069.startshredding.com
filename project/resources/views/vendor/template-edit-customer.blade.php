@@ -243,9 +243,10 @@
                                 <div class="col-sm-4">
                                     <?php
                                         $days_allowed = [];
-                                        $days=$orderTemplate->days_allowed ?? [];
+                                        $days = $orderTemplate->days_allowed ?? [];
+                                        
                                         foreach ($days AS $allowed) {
-                                            $days_allowed[$allowed]=$allowed;
+                                            $days_allowed[$allowed] = $allowed;
                                         }
                                     ?>
                                     <select name="days_allowed[]" placeholder="Please Select" class="form-control custom-select" multiple id="days_allowed">

@@ -17,29 +17,24 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        switch ($guard){
+        switch ($guard) {
             case 'profile':
-                if (Auth::guard($guard)->check()){
+                if (Auth::guard($guard)->check()) {
                     return redirect('/');
                     // return redirect(route('categories.product', 'dry-clean-laundry'));
                 }
                 //return redirect('/shop-signin');
-
                 break;
-
             case 'vendor':
-                if (Auth::guard($guard)->check()){
+                if (Auth::guard($guard)->check()) {
                     return redirect(route('vendor.dashboard'));
                 }
                 break;
-
             case 'plant':
-                if (Auth::guard($guard)->check()){
+                if (Auth::guard($guard)->check()) {
                     return redirect(route('plant.dashboard'));
-
                 }
                 break;
-
             default:
                 if (Auth::guard($guard)->check()) {
                     return redirect('admin/dashboard');

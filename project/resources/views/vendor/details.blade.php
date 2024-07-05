@@ -224,26 +224,27 @@ $urlTime = '';
 				backgroundColor:'',
 				cursor:		'wait'
 			},});
-            $.post('/vendor/sa_link',
-            {
+            
+            $.post('/vendor/sa_link', {
                 _token: "<?php echo csrf_token(); ?>",
                 id: "<?php echo $order->id ?>"
-            },
-            function(data, status){
+            }, function(data, status){
                 $.unblockUI();
                 var text = JSON.parse(data);
+
                 if(text.message != undefined){
                     toastr.options.timeOut = 1500;
                     toastr.success(text.message);
                 }
+
                 console.log(text.errors);
+
                 if(text.errors != undefined){
                     toastr.options.timeOut = 1500;
                     toastr.error(text.errors);
                 }
             });
         });
-        
     });
 
     function printPage(url) {
