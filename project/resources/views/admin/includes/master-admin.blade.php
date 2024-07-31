@@ -128,6 +128,9 @@
                             Section</a>
                     </li>
                     <li>
+                        <a href="{!! url('admin/terms_conditions') !!}"><i class="fa fa-fw fa-file"></i> Manage T&C</a>
+                    </li>
+                    <li>
                         <a href="{!! url('admin/themecolor') !!}"><i class="fa fa-fw fa-paint-brush"></i> Theme Color
                             Settings</a>
                     </li>

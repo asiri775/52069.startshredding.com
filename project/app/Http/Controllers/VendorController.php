@@ -920,23 +920,24 @@ class VendorController extends Controller
                 now()->addHours(24), // Expiry time
                 ['token' => $token] // Additional parameters
             );
-            try {
-                Mail::to('puvirajh5@gmail.com')->send(new ServiceAgreementMail($id, $url));
-                return;
 
-                // Send the email
-                Mail::to($user->email)->send(new ServiceAgreementMail($id, $url));
-                $userAddressSplitted = explode(", ", $order->customer_address, 1);
-                $shippingAddressSplitted = $order->shipping_address ?
-                    explode(", ", $order->shipping_address, 1) : $userAddressSplitted;
+            try {
                 $validator = Validator::make(['order_id' => $order->id], [
                     'order_id' => 'required|max:255|unique:service_agreements'
                 ]);
 
                 if ($validator->fails()) {
                     // return redirect()->back()->with('message', 'Service Agreement link Sent Successfully.');
-                    return json_encode(['message' => 'Service Agreement link Sent Successfully.']);
+                    return json_encode(['errors' => 'ERROR: Order id validation error.']);
                 }
+
+                // Send the email
+                // Mail::to($user->email)->send(new ServiceAgreementMail($id, $url));
+                // puvii added to send agreements only for puvi
+                Mail::to('puvirajh5@gmail.com')->send(new ServiceAgreementMail($id, $url));
+                // puvii added to send agreements only for puvi
+                $userAddressSplitted = explode(", ", $order->customer_address, 1);
+                $shippingAddressSplitted = $order->shipping_address ? explode(", ", $order->shipping_address, 1) : $userAddressSplitted;
 
                 $serviceAgreement = ServiceAgreement::Create([
                     "company_name" => $user->business_name ? $user->business_name : "",

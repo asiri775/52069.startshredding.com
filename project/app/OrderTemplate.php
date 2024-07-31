@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderTemplate extends Model
 {
-    const NEXT_MONTH=1;
-    const RANGE=2;
-    const SINGlE_DATE=3;
+    const NEXT_MONTH = 1;
+    const RANGE = 2;
+    const SINGlE_DATE = 3;
 
     protected $fillable = [
         'name',
@@ -36,30 +36,33 @@ class OrderTemplate extends Model
     ];
 
 
-    public function setDaysAllowedAttribute($value) {
+    public function setDaysAllowedAttribute($value)
+    {
         $this->attributes['days_allowed'] = json_encode($value);
     }
 
-    public function getDaysAllowedAttribute($value) {
+    public function getDaysAllowedAttribute($value)
+    {
         if (is_string($value)) {
             return $this->attributes['days_allowed'] = json_decode($value);
         }
-    
+
         return $this->attributes['days_allowed'] = $value;
         // return $this->attributes['days_allowed'] = json_decode($value);
     }
 
     public function client()
     {
-        return $this->hasOne('App\Clients','id','client_id');
+        return $this->hasOne('App\Clients', 'id', 'client_id');
     }
 
-    public function daysAllowed(){
-        if(!empty($this->attributes['days_allowed'])){
+    public function daysAllowed()
+    {
+        if (!empty($this->attributes['days_allowed'])) {
             $temp = [];
             $days = json_decode($this->attributes['days_allowed']) ?? [];
 
-            foreach ($days as $day){
+            foreach ($days as $day) {
                 if ($day == 1) {
                     $temp[] = 'Monday';
                 }
@@ -82,8 +85,8 @@ class OrderTemplate extends Model
                     $temp[] = 'Sunday';
                 }
             }
-            
-            return implode(",",$temp);
+
+            return implode(",", $temp);
         }
         return '';
     }

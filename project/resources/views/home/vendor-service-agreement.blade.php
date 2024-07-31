@@ -36,25 +36,25 @@
       <div class="col-md-3">
         <div class="form-group form-group-default required">
           <label>Company Name (*)</label>
-          <input type="text" class="form-control client_info" id="companyName" name="company_name" placeholder="Company Name" value="<?php echo $documents->company_name?>" required>
+          <input type="text" class="form-control client_info" id="companyName" name="company_name" placeholder="Company Name" value="<?php echo $documents->company_name?>" required @if($documents->sa_state == 1) disabled @endif>
         </div>
       </div>
       <div class="col-md-3">
         <div class="form-group form-group-default required">
           <label>Contact Name (*)</label>
-          <input type="text" class="form-control client_info" id="contactName" name="contact_name" placeholder="Contact Name" value="<?php echo $documents->contact_name?>" required>
+          <input type="text" class="form-control client_info" id="contactName" name="contact_name" placeholder="Contact Name" value="<?php echo $documents->contact_name?>" required @if($documents->sa_state == 1) disabled @endif>
         </div>
       </div>
       <div class="col-md-3">
         <div class="form-group form-group-default required">
           <label>Phone (*)</label>
-          <input id="phone" type="tel" pattern="\d{3}\-\d{3}\-\d{4}" name="phone_number" class="form-control telephone client_info" data-mask="(999)-999-9999" placeholder="(999)-999-9999" value="<?php echo $documents->phone_number?>"  required />
+          <input id="phone" type="tel" pattern="\d{3}\-\d{3}\-\d{4}" name="phone_number" class="form-control telephone client_info" data-mask="(999)-999-9999" placeholder="(999)-999-9999" value="<?php echo $documents->phone_number?>"  required @if($documents->sa_state == 1) disabled @endif/>
         </div>
       </div>
       <div class="col-md-3">
         <div class="form-group form-group-default required">
           <label>Email</label>
-          <input type="email" class="form-control" id="email" name="email" value="<?php echo $documents->email?>"  placeholder="joan@lifeforcephysio.com">
+          <input type="email" class="form-control" id="email" name="email" value="<?php echo $documents->email?>"  placeholder="joan@lifeforcephysio.com" @if($documents->sa_state == 1) disabled @endif>
         </div>
       </div>
     </div>
@@ -68,25 +68,25 @@
       <div class="col-md-3">
         <div class="form-group form-group-default required">
           <label>Addresss Line 1 (*)</label>
-          <input type="text" class="form-control client_info" id="bill-firstName" name="billing_address_1" placeholder="577" value="<?php echo $documents->billing_address_1?>"  required>
+          <input type="text" class="form-control client_info" id="bill-firstName" name="billing_address_1" placeholder="577" value="<?php echo $documents->billing_address_1?>"  required @if($documents->sa_state == 1) disabled @endif>
         </div>
       </div>
       <div class="col-md-3">
         <div class="form-group form-group-default required">
           <label>Addresss Line 2</label>
-          <input type="text" class="form-control" id="bill-lastName" name="billing_address_2" value="<?php echo $documents->billing_address_2?>" placeholder="Burnhamthorpe Road">
+          <input type="text" class="form-control" id="bill-lastName" name="billing_address_2" value="<?php echo $documents->billing_address_2?>" placeholder="Burnhamthorpe Road" @if($documents->sa_state == 1) disabled @endif>
         </div>
       </div>
       <div class="col-md-3">
         <div class="form-group form-group-default required">
           <label>City (*)</label>
-          <input type="text" class="form-control client_info" id="bill-city" name="billing_city" value="<?php echo $documents->billing_city?>"  placeholder="Toronto" required>
+          <input type="text" class="form-control client_info" id="bill-city" name="billing_city" value="<?php echo $documents->billing_city?>"  placeholder="Toronto" required @if($documents->sa_state == 1) disabled @endif>
         </div>
       </div>
       <div class="col-md-3">
         <div class="form-group form-group-default required">
           <label>State/Province/Region</label>
-          <input type="text" class="form-control" id="bill-state" name="billing_state" value="<?php echo $documents->billing_state?>"  placeholder="Ontario">
+          <input type="text" class="form-control" id="bill-state" name="billing_state" value="<?php echo $documents->billing_state?>"  placeholder="Ontario" @if($documents->sa_state == 1) disabled @endif>
         </div>
       </div>
     </div>
@@ -96,19 +96,19 @@
       <div class="col-md-4">
         <div class="form-group form-group-default required">
           <label>Postal Code (*)</label>
-          <input type="text" class="form-control client_info" id="bill-postal" name="billing_postal_code" value="<?php echo $documents->billing_postal_code?>"  placeholder="M9C 2Y3" required>
+          <input type="text" class="form-control client_info" id="bill-postal" name="billing_postal_code" value="<?php echo $documents->billing_postal_code?>"  placeholder="M9C 2Y3" required @if($documents->sa_state == 1) disabled @endif>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group form-group-default required">
           <label>Phone (*)</label>
-          <input type="text" class="form-control" id="bill-phoneNumber" name="billing_phone" value="<?php echo $documents->billing_phone?>"  id="phoneNumber2" value="" placeholder="(999)-999-9999" required>
+          <input type="text" class="form-control" id="bill-phoneNumber" name="billing_phone" value="<?php echo $documents->billing_phone?>"  id="phoneNumber2" value="" placeholder="(999)-999-9999" required @if($documents->sa_state == 1) disabled @endif>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group form-group-default required">
         <label>Email</label>
-           <input type="email" class="form-control" id="bill-email" name="billing_email" value="<?php echo $documents->billing_email?>"  placeholder="joan@lifeforcephysio.com">
+           <input type="email" class="form-control" id="bill-email" name="billing_email" value="<?php echo $documents->billing_email?>"  placeholder="joan@lifeforcephysio.com" @if($documents->sa_state == 1) disabled @endif>
           </div>
       </div>
     </div>
@@ -132,44 +132,44 @@
       <div class="col-md-4">
         <div class="form-group form-group-default required">
           <label>Addresss Line 1 (*)</label>
-          <input type="text" class="form-control client_info" id="shipp-firstName" name="shipping_address_1" value="<?php echo $documents->shipping_address_1?>" placeholder="577" required>
+          <input type="text" class="form-control client_info" id="shipp-firstName" name="shipping_address_1" value="<?php echo $documents->shipping_address_1?>" placeholder="577" required @if($documents->sa_state == 1) disabled @endif>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group form-group-default required">
           <label>Addresss Line 2</label>
-          <input type="text" class="form-control" id="shipp-lastName" name="shipping_address_2" value="<?php echo $documents->shipping_address_2?>" placeholder="Burnhamthorpe Road">
+          <input type="text" class="form-control" id="shipp-lastName" name="shipping_address_2" value="<?php echo $documents->shipping_address_2?>" placeholder="Burnhamthorpe Road" @if($documents->sa_state == 1) disabled @endif>
         </div>
       </div>
     </div><div class="row">
       <div class="col-md-4">
         <div class="form-group form-group-default required">
           <label>City (*)</label>
-          <input type="text" class="form-control client_info" id="shipp-city" name="shipping_city" value="<?php echo $documents->shipping_city?>" placeholder="Toronto" required>
+          <input type="text" class="form-control client_info" id="shipp-city" name="shipping_city" value="<?php echo $documents->shipping_city?>" placeholder="Toronto" required @if($documents->sa_state == 1) disabled @endif>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group form-group-default required">
           <label>State/Province/Region</label>
-          <input type="text" class="form-control" id="shipp-state" name="shipping_state" value="<?php echo $documents->shipping_state?>" placeholder="Ontario">
+          <input type="text" class="form-control" id="shipp-state" name="shipping_state" value="<?php echo $documents->shipping_state?>" placeholder="Ontario" @if($documents->sa_state == 1) disabled @endif>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group form-group-default required">
           <label>Postal Code (*)</label>
-          <input type="text" class="form-control client_info" id="shipp-postal" name="shipping_postal_code" value="<?php echo $documents->shipping_postal_code?>" placeholder="M9C 2Y3" required>
+          <input type="text" class="form-control client_info" id="shipp-postal" name="shipping_postal_code" value="<?php echo $documents->shipping_postal_code?>" placeholder="M9C 2Y3" required @if($documents->sa_state == 1) disabled @endif>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group form-group-default required">
           <label>Phone (*)</label>
-          <input type="text" class="form-control" id="shipp-phoneNumber" name="shipping_phone" id="phoneNumber3" value="<?php echo $documents->shipping_phone?>" value="" placeholder="(999)-999-9999" required>
+          <input type="text" class="form-control" id="shipp-phoneNumber" name="shipping_phone" id="phoneNumber3" value="<?php echo $documents->shipping_phone?>" value="" placeholder="(999)-999-9999" required @if($documents->sa_state == 1) disabled @endif>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group form-group-default required">
           <label>Email</label>
-            <input type="email" class="form-control" id="shipp-email" name="shipping_email" value="<?php echo $documents->shipping_email?>" placeholder="joan@lifeforcephysio.com">
+            <input type="email" class="form-control" id="shipp-email" name="shipping_email" value="<?php echo $documents->shipping_email?>" placeholder="joan@lifeforcephysio.com" @if($documents->sa_state == 1) disabled @endif>
           </div>
       </div>
     </div>
@@ -215,7 +215,7 @@
             <div class="form-input-group">
               <label>From</label>
               <div id="selector">
-                <select class="form-control input-lg" id="operation_from">
+                <select class="form-control input-lg" id="operation_from" @if($documents->sa_state == 1) disabled @endif>
                   <option>7.00AM</option>
                   <option>8.00AM</option>
                   <option>9.00AM</option>
@@ -240,7 +240,7 @@
             <div class="form-input-group">
               <label>To</label>
               <div id="selector">
-                <select class="form-control input-lg" id="operation_to">
+                <select class="form-control input-lg" id="operation_to" @if($documents->sa_state == 1) disabled @endif>
                   <option>7.00AM</option>
                   <option>8.00AM</option>
                   <option>9.00AM</option>
@@ -309,7 +309,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text bold">$</span>
                     </div>
-                    <input type="number" id="makeitcount" min="0" step="0.01" value="0.75" class="form-control">
+                    <input type="number" id="makeitcount" min="0" step="0.01" value="0.75" class="form-control" @if($documents->sa_state == 1) disabled @endif>
                 </div>
                 </td>
               </tr>
@@ -329,109 +329,111 @@
   </div>
 </div>
 <div class='page-title'>
-<div class="row row-same-height">
-  <div class="col-md-12">
-      <h3 class="font-montserrat">Terms and Conditions</h3>
-      <p>This AGREEMENT is entered into between <b>SHREDEX INC.</b>a corporation incorporated under the laws of the Province of Ontario (hereinafter referred to
-      as “SHREDEX”, “CONTRACTOR”, “Company”, “Supplier”, “Seller”, “Service Provider”, or “Vendor”), and Life Force Physiotherapy (hereinafter referred to
-      as the “Client” or “Customer”). The laws of the Province of Ontario shall control this Agreement and any documents to which it is appended.</p>
-    <ol>
-      <li><span class="font-montserrat bold">Scheduling</span>
-        <p>In order to reduce costs to our clients, our routes are scheduled for maximum efficiency. We will make every attempt to provide service to you at a
-        time that is most convenient, however we can only guarantee that service will be done between our operating hours of 8am to 5pm, unless certain
-        times are specifically requested. You may contact our dispatch office on the day of your pick up to request a narrower time window, for your
-        convenience. If additional material is presented to us upon our arrival at your facility, we will do our best to complete the entire job on the same
-        day. However, if our prior commitments to other clients prevent us from completing the job, we will re-schedule a pickup of your additional items on
-        another day. Please note that this will result in additional costs for travel and shredding time.</p>
-      </li>
-      <li><span class="font-montserrat bold">Definition of File Boxes</span>
-        <p>When rates are provided based on a per ‘file box’ basis, we refer to boxes that measure 15”D x 10”W x 12” H. If your boxes are not the same
-        dimension, you will be notified by our driver if there will be changes to your rates, depending on the size of the boxes.</p>
-      </li>
-      <li><span class="font-montserrat bold">Location of Documents</span>
-        <p>Unless specified in the Pickup Confirmation document, Quotes are provided with the understanding that your documents/materials will be located
-        in an area that will be readily accessible to our employees upon arrival. Materials should be at ground floor level, no greater than 30 feet from the
-        doorway access, or loading dock area. If documents are not within these parameters, our staff will inform you immediately if any additional charges
-        will occur, prior to commencing service. A Labour Charge of $2.00 per box will be applied for every 10 steps either up or down, if boxes need to be
-        manually moved to ground level.</p>
-      </li>
-      <li><span class="font-montserrat bold">Quoted Rates</span>
-        <p>We offer competitive pricing based on volume, scheduled date of pickup, and the type of service required. If there is a change in the parameters of
-        the service you requested (ie. Change in quantity of material, or additional labour required to collect materials), you will be notified by our Customer
-        Service Representative prior to commencement of the job. Changes in your service may result in higher or lower pricing than your quoted rate.
-        </p>
-      </li>
-      <li><span class="font-montserrat bold">Payment Terms</span>
-        <p>Our payment terms for non-contract clients are COD. We accept Visa and Mastercard, as well as a company or personal cheque. Cash payments
-        are accepted, but please note that our drivers cannot make change, therefore exact payment will be required. A $25.00 NSF Fee will apply for
-        Credit Card Payments that are declined. A $50.00 NSF Fee is applicable for cheque payments that are returned for insufficient funds. In addition,
-        the Client shall be liable for the <b>shredEX</b>'s expenses for the collection of any unpaid debt including but not limited to termination fees, interest
-        expenses, court filing fees and legal costs.</p>
-      </li>
-      <li><span class="font-montserrat bold">Cancellation Fee</span>
-        <p>A Cancellation Fee of $125.00 or 50% of the service order value (whichever is greater) will apply for any service cancelled with less than 24 hours
-        notice. For Mobile Shredding Service the Cancellation Fee of $250.00 or 100% of the Service Order Value, applies if the service is cancelled with
-        less than 72 hours notice.</p>
-      </li>
-      <li><span class="font-montserrat bold">Parking Tickets</span>
-        <p><b>shredEX</b> will make every effort to legally park for the duration of the service. However, the Client agrees to pay for any parking tickets incurred by
-        <b>shredEX</b> while providing service to the Client, plus a $25.00 administration fee.</p>
-      </li>
-      <li><span class="font-montserrat bold">Payments and Invoices</span>
-        <p>The Client agrees to pay <b>shredEX</b> for all services rendered. If the Client is delinquent in payment of fees or any other charges due under this
-        agreement for more than thirty one (31) days, the Client agrees to pay and administration of $7.50 per month per overdue invoice or calculated as
-        an interest at the rate of 28% per annum, whichever is greater. This fee is continually applied monthly until the balance is paid in full. A $25.00 NSF
-        Fee will apply for Credit Card or Electronic Fund Transfer Payments that are declined. A $50.00 NSF Fee is applicable for cheque payments that
-        are returned for insufficient funds.</p>
-        <p class="bold">If you have any questions regarding this Agreement, please contact your Account Manager at 416-255-1500 or send an email to <a href="mailto:info@shredex.ca">info@shredex.ca</a>
-        </p>
-      </li>
-    </ol>
-    <!-- <div class="row">
-      <div class="col-12 mt-3">
-        <div class="form-check primary m-t-0 ml-2 text-right">
-          <input type="checkbox" value="1" id="checkbox-agree" required>
-          <label for="checkbox-agree" class="fs-16 bold font-montserrat">The undersigned hereby agrees to this agreement, on behalf of the
-            Client.
-          </label>
-          <div id="checkbox-agree-valid"></div>
+  <div class="row row-same-height">
+    <div class="col-md-12">
+        <h3 class="font-montserrat">Terms and Conditions</h3>
+        <p>This AGREEMENT is entered into between <b>SHREDEX INC.</b>a corporation incorporated under the laws of the Province of Ontario (hereinafter referred to
+        as “SHREDEX”, “CONTRACTOR”, “Company”, “Supplier”, “Seller”, “Service Provider”, or “Vendor”), and Life Force Physiotherapy (hereinafter referred to
+        as the “Client” or “Customer”). The laws of the Province of Ontario shall control this Agreement and any documents to which it is appended.</p>
+      <ol>
+        <li><span class="font-montserrat bold">Scheduling</span>
+          <p>In order to reduce costs to our clients, our routes are scheduled for maximum efficiency. We will make every attempt to provide service to you at a
+          time that is most convenient, however we can only guarantee that service will be done between our operating hours of 8am to 5pm, unless certain
+          times are specifically requested. You may contact our dispatch office on the day of your pick up to request a narrower time window, for your
+          convenience. If additional material is presented to us upon our arrival at your facility, we will do our best to complete the entire job on the same
+          day. However, if our prior commitments to other clients prevent us from completing the job, we will re-schedule a pickup of your additional items on
+          another day. Please note that this will result in additional costs for travel and shredding time.</p>
+        </li>
+        <li><span class="font-montserrat bold">Definition of File Boxes</span>
+          <p>When rates are provided based on a per ‘file box’ basis, we refer to boxes that measure 15”D x 10”W x 12” H. If your boxes are not the same
+          dimension, you will be notified by our driver if there will be changes to your rates, depending on the size of the boxes.</p>
+        </li>
+        <li><span class="font-montserrat bold">Location of Documents</span>
+          <p>Unless specified in the Pickup Confirmation document, Quotes are provided with the understanding that your documents/materials will be located
+          in an area that will be readily accessible to our employees upon arrival. Materials should be at ground floor level, no greater than 30 feet from the
+          doorway access, or loading dock area. If documents are not within these parameters, our staff will inform you immediately if any additional charges
+          will occur, prior to commencing service. A Labour Charge of $2.00 per box will be applied for every 10 steps either up or down, if boxes need to be
+          manually moved to ground level.</p>
+        </li>
+        <li><span class="font-montserrat bold">Quoted Rates</span>
+          <p>We offer competitive pricing based on volume, scheduled date of pickup, and the type of service required. If there is a change in the parameters of
+          the service you requested (ie. Change in quantity of material, or additional labour required to collect materials), you will be notified by our Customer
+          Service Representative prior to commencement of the job. Changes in your service may result in higher or lower pricing than your quoted rate.
+          </p>
+        </li>
+        <li><span class="font-montserrat bold">Payment Terms</span>
+          <p>Our payment terms for non-contract clients are COD. We accept Visa and Mastercard, as well as a company or personal cheque. Cash payments
+          are accepted, but please note that our drivers cannot make change, therefore exact payment will be required. A $25.00 NSF Fee will apply for
+          Credit Card Payments that are declined. A $50.00 NSF Fee is applicable for cheque payments that are returned for insufficient funds. In addition,
+          the Client shall be liable for the <b>shredEX</b>'s expenses for the collection of any unpaid debt including but not limited to termination fees, interest
+          expenses, court filing fees and legal costs.</p>
+        </li>
+        <li><span class="font-montserrat bold">Cancellation Fee</span>
+          <p>A Cancellation Fee of $125.00 or 50% of the service order value (whichever is greater) will apply for any service cancelled with less than 24 hours
+          notice. For Mobile Shredding Service the Cancellation Fee of $250.00 or 100% of the Service Order Value, applies if the service is cancelled with
+          less than 72 hours notice.</p>
+        </li>
+        <li><span class="font-montserrat bold">Parking Tickets</span>
+          <p><b>shredEX</b> will make every effort to legally park for the duration of the service. However, the Client agrees to pay for any parking tickets incurred by
+          <b>shredEX</b> while providing service to the Client, plus a $25.00 administration fee.</p>
+        </li>
+        <li><span class="font-montserrat bold">Payments and Invoices</span>
+          <p>The Client agrees to pay <b>shredEX</b> for all services rendered. If the Client is delinquent in payment of fees or any other charges due under this
+          agreement for more than thirty one (31) days, the Client agrees to pay and administration of $7.50 per month per overdue invoice or calculated as
+          an interest at the rate of 28% per annum, whichever is greater. This fee is continually applied monthly until the balance is paid in full. A $25.00 NSF
+          Fee will apply for Credit Card or Electronic Fund Transfer Payments that are declined. A $50.00 NSF Fee is applicable for cheque payments that
+          are returned for insufficient funds.</p>
+          <p class="bold">If you have any questions regarding this Agreement, please contact your Account Manager at 416-255-1500 or send an email to <a href="mailto:info@shredex.ca">info@shredex.ca</a>
+          </p>
+        </li>
+      </ol>
+      <!-- <div class="row">
+        <div class="col-12 mt-3">
+          <div class="form-check primary m-t-0 ml-2 text-right">
+            <input type="checkbox" value="1" id="checkbox-agree" required>
+            <label for="checkbox-agree" class="fs-16 bold font-montserrat">The undersigned hereby agrees to this agreement, on behalf of the
+              Client.
+            </label>
+            <div id="checkbox-agree-valid"></div>
+          </div>
         </div>
+      </div> -->
+    </div>
+    @if($documents->sa_state == 1)
+    <div class="col-md-12">
+      <div class="row clearfix mb-1">
+          <div class="col-md-6">
+              <div class="main-title mt-4">
+                  <h3 class="font-montserrat bold fs-16 bold all-caps no-margin">Card Details</h3>
+              </div>
+              <div>
+                  <label>Card Holder Name : <?php echo $documents->credit_card_name ?></label>
+              </div>
+              <div>
+                  <label>Card Number : <?php echo $documents->credit_card_number ?></label>
+              </div>
+              <div>
+                  <label>Expiry :
+                      <?php echo $documents->credit_card_expire_month ?>/<?php echo $documents->credit_card_expire_year ?></label>
+              </div>
+              <div>
+                  <label>CCV : <?php echo $documents->credit_card_ccv ?></label>
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="main-title mt-4">
+                  <h3 class="">Digital Signature
+                  </h3>
+              </div>
+              <div class="">
+                  <img src="{{asset('/photos').'/'.$documents->order_id.'.jpg'}}">
+                  <label>Signature : {{$documents->credit_card_name}}</label>
+              </div>
+          </div>
       </div>
-    </div> -->
+    </div>
+    @endif
   </div>
-  <div class="col-md-12">
-                        <div class="row clearfix mb-1">
-                            <div class="col-md-6">
-                                <div class="main-title mt-4">
-                                    <h3 class="font-montserrat bold fs-16 bold all-caps no-margin">Card Details</h3>
-                                </div>
-                                <div>
-                                    <label>Card Holder Name : <?php echo $documents->credit_card_name ?></label>
-                                </div>
-                                <div>
-                                    <label>Card Number : <?php echo $documents->credit_card_number ?></label>
-                                </div>
-                                <div>
-                                    <label>Expiry :
-                                        <?php echo $documents->credit_card_expire_month ?>/<?php echo $documents->credit_card_expire_year ?></label>
-                                </div>
-                                <div>
-                                    <label>CCV : <?php echo $documents->credit_card_ccv ?></label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="main-title mt-4">
-                                    <h3 class="">Digital Signature
-                                    </h3>
-                                </div>
-                                <div class="">
-                                    <img src="{{asset('/photos').'/'.$documents->order_id.'.jpg'}}">
-                                    <label>Signature : {{$documents->credit_card_name}}</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-</div>
 </div>
 
 <script>

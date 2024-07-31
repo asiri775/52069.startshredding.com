@@ -50,6 +50,18 @@ class IndexController extends Controller
         return view('home.index');
     }
 
+    // puvi added new
+    public function showHomeCA()
+    {
+        return view('home.index_ca');
+    }
+
+    public function showHomeUS()
+    {
+        return view('home.index_us');
+    }
+    // puvi added new
+
     public function saveAddress(Request $request)
     {
         Session::put('shop_country', $request->country);
@@ -98,16 +110,30 @@ class IndexController extends Controller
         return view('home.quote_request.quote_request');
     }
 
+    // puvi added new
+    public function showRequestQuoteCA()
+    {
+        return view('home.quote_request.quote_request_ca');
+    }
+
+    public function showRequestQuoteUS()
+    {
+        return view('home.quote_request.quote_request_us');
+    }
+    // puvi added new
+
     public function submitQuote(Request $request)
     {
         if ($request->standard_file_boxes != '') {
             $qty = $request->standard_file_boxes;
             $container_type = 'Standard File Boxes';
         }
+
         if ($request->garbage_bags) {
             $qty = $request->garbage_bags;
             $container_type = 'Garbage Bags';
         }
+
         if ($request->pallets) {
             $qty = $request->pallets;
             $container_type = 'Pallets';
@@ -184,8 +210,6 @@ class IndexController extends Controller
                 'longitude' => $request->lontude,
                 'latitude' => $request->latude,
             ]);
-
-
         } else {
             $user = $user[0];
         }
@@ -207,7 +231,6 @@ class IndexController extends Controller
             'booking_date' => Carbon::now(),
             'status' => "scheduled"
         ]);
-
 
         OrderedProducts::create([
             'orderid' => $order->id,
@@ -238,7 +261,6 @@ class IndexController extends Controller
             'start_date' => $date,
             'promo_code' => $data['promocode']
         ]);
-
 
         $EmailSubject = EmailSubject::where('token', 'k7hjc7hl')->first();
         $EmailTemplate = EmailTemplate::where('domain', 2)->where('subject_id', $EmailSubject['id'])->first();

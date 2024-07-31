@@ -258,6 +258,8 @@ Route::post('admin/pagesettings/faq', 'PageSettingsController@faq');
 Route::post('admin/pagesettings/contact', 'PageSettingsController@contact');
 Route::resource('/admin/pagesettings', 'PageSettingsController');
 
+Route::resource('/admin/terms_conditions', 'TermsConditionsController');
+
 // Route::resource('/admin/products', 'ProductController');
 Route::resource('/admin/products', 'ProductController')->names([
     'index' => 'admin.products.index',
@@ -453,10 +455,18 @@ Route::get('download/{id}', 'VendorController@download_doc')->name('file.downloa
 
 Route::get('/vendor/template/{id}/create', 'OrderTemplateController@create')->name('vendor.customer.create');
 Route::get('', 'IndexController@showHome')->name('indexPage');
+// puvi added new
+Route::get('/ca', 'IndexController@showHomeCA')->name('indexPageCA');
+Route::get('/us', 'IndexController@showHomeUS')->name('indexPageUS');
+// puvi added new
 Route::get('/customers', 'IndexController@showCustomersPage')->name('home.order');
 Route::get('/customers/products/{id}', 'IndexController@showProductPage')->name('home.order.product');
 Route::post('/customers/update-details/{id}', 'IndexController@updateOrderDetails')->name('home.order.update.details');
 Route::get('/request_quote', 'IndexController@showRequestQuote')->name('quote');
+// puvi added new
+Route::get('/request_quote_ca', 'IndexController@showRequestQuoteCA')->name('quote_ca');
+Route::get('/request_quote_us', 'IndexController@showRequestQuoteUS')->name('quote_us');
+// puvi added new
 Route::post('/request_quote/submit', 'IndexController@submitQuote')->name('quote.submit');
 
 

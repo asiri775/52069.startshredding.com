@@ -116,16 +116,21 @@
                                                         </thead>
                                                         <tbody>
                                                             @foreach($documents as $document)
-                                                                @if($document->sa_state == 1)
                                                                 <tr class="text-center">
                                                                     <td class="fs-12">{{$document->order_id}}</td>
                                                                     <td class="fs-12">{{date('m/d/Y', strtotime($document->booking_date))}}</td>
                                                                     <td class="fs-12">{{$document->contact_name}}</td>
                                                                     <td class="fs-12">{{$settings[0]->currency_sign}}{{number_format($document->pay_amount, 2)}}</td>
                                                                     <td class="fs-12">
-                                                                        <a href="{!!url('/vendor/service_agreement/'.$document->order_id)!!}" class="btn complete-btn btn-success btn-cons btn-block"
-                                                                                type="button"><span>Completed</span>
+                                                                        @if($document->sa_state == 1)
+                                                                        <a href="{!!url('/vendor/service_agreement/'.$document->order_id)!!}" class="btn complete-btn btn-success btn-cons btn-block" type="button">
+                                                                            <span>Completed</span>
                                                                         </a>
+                                                                        @else
+                                                                        <a href="{!!url('/vendor/service_agreement/'.$document->order_id)!!}" class="btn complete-btn btn-primary btn-cons btn-block" type="button">
+                                                                            <span>Incompleted</span>
+                                                                        </a>
+                                                                        @endif
                                                                     </td>
                                                                     <td class="fs-12">
                                                                         <a href="{!!url('/vendor/service_agreement_email/'.$document->order_id)!!}" class="btn btn-warning">
@@ -138,9 +143,7 @@
                                                                             <i class="fa fa-print"></i>
                                                                         </a>
                                                                     </td>
-                                                                    
                                                                 </tr>
-                                                                @endif
                                                             @endforeach
                                                         </tbody>
                                                     </table>

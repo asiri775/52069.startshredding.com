@@ -312,23 +312,23 @@
                                             <small><span class="text-red city_error"></span></small>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-12">
                                                 <div class="form-group form-group-default required"
                                                      aria-required="true">
                                                     <label class="control-label">Zip</label>
                                                     <input type="text" name="fsa1" class="form-control" id="fsa1"
-                                                           aria-required="true">
+                                                           aria-required="true" placeholder="Enter your zip">
                                                     <small><span class="text-red zip_error"></span></small>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <!-- <div class="col-sm-6">
                                                 <div class="form-group form-group-default">
                                                     <label class="control-label">Postal Code</label>
                                                     <input type="text" name="fsa2" class="form-control"
                                                            id="fsa2"
                                                            aria-required="true">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <input type="hidden" name="country" id="country">
                                         <input type="hidden" id="lontude" name="lontude">
@@ -390,7 +390,7 @@
                                             <div id="div1" class="targetDiv">
                                                 <h2>What Type of Shredding Service do you prefer ?</h2>
                                                 <div class="row second-selection">
-                                                    <div class="col-sm-4 type-box overlay-type-div">
+                                                    <div class="col-sm-4 type-box overlay-div">
                                                         <a class="showType" target="1"
                                                            id="shredding_one"
                                                            data-shredding-type="OFF-SITE (Secured Warehouse Shredding)">
@@ -403,7 +403,7 @@
                                                                 destroyed the same day.</p>
                                                         </a>
                                                     </div>
-                                                    <div class="col-sm-4 type-box overlay-type-div">
+                                                    <div class="col-sm-4 type-box overlay-div">
                                                         <a class="showType" target="1"
                                                            id="shredding_two"
                                                            data-shredding-type="ON-SITE (Mobile Shredding)">
@@ -416,7 +416,7 @@
                                                             </p>
                                                         </a>
                                                     </div>
-                                                    <div class="col-sm-4 type-box overlay-type-div">
+                                                    <div class="col-sm-4 type-box overlay-div">
                                                         <a class="showType" target="3"
                                                            id="shredding_three"
                                                            data-shredding-type="No Preference">
@@ -434,7 +434,7 @@
                                             <div id="div2" class="targetDiv">
                                                 <h2>What Type of Shredding Service do you prefer ?</h2>
                                                 <div class="row second-selection">
-                                                    <div class="col-sm-4 type-box overlay-type-div">
+                                                    <div class="col-sm-4 type-box overlay-div">
                                                         <a class="showType" target="1"
                                                            id="shredding_one"
                                                            data-shredding-type="OFF-SITE (Secured Warehouse Shredding)">
@@ -447,7 +447,7 @@
                                                                 destroyed the same day.</p>
                                                         </a>
                                                     </div>
-                                                    <div class="col-sm-4 type-box overlay-type-div">
+                                                    <div class="col-sm-4 type-box overlay-div">
                                                         <a class="showType" target="1"
                                                            id="shredding_two"
                                                            data-shredding-type="ON-SITE (Mobile Shredding)">
@@ -459,7 +459,7 @@
                                                                 Truck</p>
                                                         </a>
                                                     </div>
-                                                    <div class="col-sm-4 type-box overlay-type-div">
+                                                    <div class="col-sm-4 type-box overlay-div">
                                                         <a class="showType" target="3"
                                                            id="shredding_three"
                                                            data-shredding-type="No Preference">
@@ -931,16 +931,16 @@
 
     <script>
         $(document).ready(function () {
+
             $('.overlay-div a')
                 .click(function (e) {
                     $('.overlay-div a')
                         .removeClass('active');
                     $(this).addClass('active');
                 });
-
-            $('.overlay-type-div a')
+            $('#div1 .overlay-div a')
                 .click(function (e) {
-                    $('.overlay-type-div a')
+                    $('#div1 .overlay-div a')
                         .removeClass('active');
                     $(this).addClass('active');
                 });
@@ -1112,13 +1112,8 @@
                 let hostname = window.location.hostname;
 
                 // Check if the hostname ends with .com or .ca
-                if (hostname.endsWith('.com')) {
-                    console.log("The URL ends with .com");
-                    service.getPlacePredictions(request1, callback);//remove if only for US
-                } else {
-                    console.log("The URL does not end with .com");
-                    service.getPlacePredictions(request2, callback); //remove if only for CA
-                }
+                console.log("The URL ends with .com");
+                service.getPlacePredictions(request1, callback);//remove if only for US
             });
 
             $(document).on('click', '.serachwrap li', function () {
@@ -1157,8 +1152,8 @@
             marker = null;
 
             function fillInAddress(results, status) {
-                var latitude = results[0].geometry.location.lat() ?? '';
-                var longitude = results[0].geometry.location.lng() ?? '';
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
 
                 if (marker != null) {
                     marker.setMap(null);
@@ -1237,11 +1232,10 @@
                     });
 
                     if (postal_code) {
-                        postal_code_array = postal_code.split(" ");
-                        document.getElementById("fsa1").value = postal_code_array[0] == null ? '' :
-                            postal_code_array[0];
-                        document.getElementById("fsa2").value = postal_code_array[1] == null ? '' :
-                            postal_code_array[1];
+                        document.getElementById("fsa1").value = postal_code
+                        // postal_code_array = postal_code.split(" ");
+                        // document.getElementById("fsa1").value = postal_code_array[0] == null ? '' : postal_code_array[0];
+                        // document.getElementById("fsa2").value = postal_code_array[1] == null ? '' : postal_code_array[1];
                     }
 
                     google.maps.event.trigger(map, 'resize');

@@ -102,6 +102,7 @@ class ServiceAgreementController extends Controller
     public function confirm_link($token, Request $request)
     {
         if (!$request->hasValidSignature()) {
+            return view('home.service-agreements-not-found');
             return ("The link is expired");
         }
         $data = json_decode(Crypt::decryptString($token), true);
